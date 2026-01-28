@@ -93,6 +93,7 @@ public class AlgaeSubsystem extends SubsystemBase {
      * the SPARK loses power. This is useful for power cycles that may occur
      * mid-operation.
      */
+    
     intakeMotor.configure(
         Configs.AlgaeSubsystem.intakeConfig,
         ResetMode.kResetSafeParameters,
@@ -229,3 +230,4 @@ public class AlgaeSubsystem extends SubsystemBase {
     // SimBattery is updated in Robot.java
   }
 }
+ 
