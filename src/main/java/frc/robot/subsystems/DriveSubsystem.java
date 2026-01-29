@@ -161,8 +161,8 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearRight.getPosition()
         });
         // Inject vision data into odometry
-    Optional<Pose2d> visionPose = m_visionSubsystem.getEstimatedPose();
-    visionPose.ifPresent(pose -> {
+    Optional<Pose2d> fusedPose = m_visionSubsystem.getEstimatedPose();
+    fusedPose.ifPresent(pose -> {
         m_odometry.addVisionMeasurement(pose, Timer.getFPGATimestamp());
     });
   }
