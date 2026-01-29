@@ -35,9 +35,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.AlgaeSubsystem;
-import frc.robot.subsystems.CoralSubsystem;
-import frc.robot.subsystems.CoralSubsystem.Setpoint;
+// import frc.robot.subsystems.AlgaeSubsystem;
+// import frc.robot.subsystems.CoralSubsystem;
+// import frc.robot.subsystems.CoralSubsystem.Setpoint;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import java.util.List;
@@ -52,8 +52,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class RobotContainer {
   // The robot's subsystems
-  private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
-  private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
+//   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
+//   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem("flAPtag");
   private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
 
@@ -72,15 +72,15 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //registering named Commands for Algae
-    NamedCommands.registerCommand("Grab Algae", m_algaeSubsystem.runIntakeCommand());
-    NamedCommands.registerCommand("Spit Out Algae", m_algaeSubsystem.reverseIntakeCommand());
-    //registering named commands for Coral
-    NamedCommands.registerCommand("Grab Coral", m_coralSubSystem.runIntakeCommand());
-    NamedCommands.registerCommand("Spit Out Coral", m_coralSubSystem.reverseIntakeCommand());
-    NamedCommands.registerCommand("Coral Station", m_coralSubSystem.setSetpointCommand(Setpoint.kFeederStation));
-    NamedCommands.registerCommand("L2", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
-    NamedCommands.registerCommand("L3", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
-    NamedCommands.registerCommand("L4", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
+    // NamedCommands.registerCommand("Grab Algae", m_algaeSubsystem.runIntakeCommand());
+    // NamedCommands.registerCommand("Spit Out Algae", m_algaeSubsystem.reverseIntakeCommand());
+    // registering named commands for Coral
+    // NamedCommands.registerCommand("Grab Coral", m_coralSubSystem.runIntakeCommand());
+    // NamedCommands.registerCommand("Spit Out Coral", m_coralSubSystem.reverseIntakeCommand());
+    // NamedCommands.registerCommand("Coral Station", m_coralSubSystem.setSetpointCommand(Setpoint.kFeederStation));
+    // NamedCommands.registerCommand("L2", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
+    // NamedCommands.registerCommand("L3", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
+    // NamedCommands.registerCommand("L4", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
     //building the auto chooser on smartdashboard
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -102,7 +102,7 @@ public class RobotContainer {
             m_robotDrive));
 
     // Set the ball intake to in/out when not running based on internal state
-    m_algaeSubsystem.setDefaultCommand(m_algaeSubsystem.idleCommand());
+    // m_algaeSubsystem.setDefaultCommand(m_algaeSubsystem.idleCommand());
   }
 
   /**
@@ -115,39 +115,39 @@ public class RobotContainer {
 
 
 
-    // Left Bumper -> Run tube intake
-    m_manipController.rightBumper().whileTrue(m_coralSubSystem.runIntakeCommand());
+    // // Left Bumper -> Run tube intake
+    // m_manipController.rightBumper().whileTrue(m_coralSubSystem.runIntakeCommand());
 
-    // Right Bumper -> Run tube intake in reverse
-    m_manipController.leftBumper().whileTrue(m_coralSubSystem.reverseIntakeCommand());
+    // // Right Bumper -> Run tube intake in reverse
+    // m_manipController.leftBumper().whileTrue(m_coralSubSystem.reverseIntakeCommand());
 
-    // B Button -> Elevator/Arm to human player position, set ball intake to stow
-    // when idle
-    m_manipController
-        .b()
-        .onTrue(
-            m_coralSubSystem
-                .setSetpointCommand(Setpoint.kFeederStation)
-                .alongWith(m_algaeSubsystem.stowCommand()));
+    // // B Button -> Elevator/Arm to human player position, set ball intake to stow
+    // // when idle
+    // m_manipController
+    //     .b()
+    //     .onTrue(
+    //         m_coralSubSystem
+    //             .setSetpointCommand(Setpoint.kFeederStation)
+    //             .alongWith(m_algaeSubsystem.stowCommand()));
 
-    // A Button -> Elevator/Arm to level 2 position
-    m_manipController.a().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
+    // // A Button -> Elevator/Arm to level 2 position
+    // m_manipController.a().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
 
-    // X Button -> Elevator/Arm to level 3 position
-    m_manipController.x().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
+    // // X Button -> Elevator/Arm to level 3 position
+    // m_manipController.x().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
 
-    // Y Button -> Elevator/Arm to level 4 position
-    m_manipController.y().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
+    // // Y Button -> Elevator/Arm to level 4 position
+    // m_manipController.y().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
 
-    // Right Trigger -> Run ball intake, set to leave out when idle
-    m_manipController
-        .rightTrigger(OIConstants.kTriggerButtonThreshold)
-        .whileTrue(m_algaeSubsystem.runIntakeCommand());
+    // // Right Trigger -> Run ball intake, set to leave out when idle
+    // m_manipController
+    //     .rightTrigger(OIConstants.kTriggerButtonThreshold)
+    //     .whileTrue(m_algaeSubsystem.runIntakeCommand());
 
-    // Left Trigger -> Run ball intake in reverse, set to stow when idle
-    m_manipController
-        .leftTrigger(OIConstants.kTriggerButtonThreshold)
-        .whileTrue(m_algaeSubsystem.reverseIntakeCommand());
+    // // Left Trigger -> Run ball intake in reverse, set to stow when idle
+    // m_manipController
+    //     .leftTrigger(OIConstants.kTriggerButtonThreshold)
+    //     .whileTrue(m_algaeSubsystem.reverseIntakeCommand());
 
     // Turtle Beach Button 1 or Colored A -> Set Robot Speed to Full Send (Child Detected)
     fullSendButton.onTrue(new InstantCommand(() -> m_robotDrive.setDriveSpeed(1)));
@@ -169,11 +169,11 @@ public class RobotContainer {
 
   }
 
-  public double getSimulationTotalCurrentDraw() {
-    // for each subsystem with simulation
-    return m_coralSubSystem.getSimulationCurrentDraw()
-        + m_algaeSubsystem.getSimulationCurrentDraw();
-  }
+//   public double getSimulationTotalCurrentDraw() {
+//     // for each subsystem with simulation
+//     // return m_coralSubSystem.getSimulationCurrentDraw()
+//     //     + m_algaeSubsystem.getSimulationCurrentDraw();
+//   }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
