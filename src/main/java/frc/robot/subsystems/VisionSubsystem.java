@@ -217,6 +217,46 @@ public class VisionSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Target IDL", -1);
             SmartDashboard.putNumber("Number of TargetsL", 0);
         }
+    
+    
+
+    // Fuse estimated poses from right and left cameras into a single pose
+    Optional<Pose2d> poseR = getEstimatedPose();
+    Optional<Pose2d> poseL = getEstimatedPoseL();
+
+    Pose2d fusedPose = null;
+
+    if (poseR.isPresent() && poseL.isPresent()) {
+        Pose2d r = poseR.get();
+        Pose2d l = poseL.get();
+
+        // Average X and Y
+        double x = (r.getX() + l.getX()) / 2.0;
+        double y = (r.getY() + l.getY()) / 2.0;
+
+        // Average rotation robustly using sin/cos to avoid wrap issues
+        double a1 = r.getRotation().getRadians();
+        double a2 = l.getRotation().getRadians();
+        double avgSin = Math.sin(a1) + Math.sin(a2);
+        double avgCos = Math.cos(a1) + Math.cos(a2);
+        double avgAngle = Math.atan2(avgSin, avgCos);
+
+        fusedPose = new Pose2d(x, y, new Rotation2d(avgAngle));
+    } else if (poseR.isPresent()) {
+        fusedPose = poseR.get();
+    } else if (poseL.isPresent()) {
+        fusedPose = poseL.get();
+    }
+
+    // Publish fused pose (or status) to SmartDashboard
+    if (fusedPose != null) {
+        SmartDashboard.putNumber("FusedPoseX", fusedPose.getX());
+        SmartDashboard.putNumber("FusedPoseY", fusedPose.getY());
+        SmartDashboard.putNumber("FusedPoseAngleDeg", fusedPose.getRotation().getDegrees());
+    } else {
+        SmartDashboard.putString("FusedPoseStatus", "No targets");
+    }
+    
     }
     
 }
