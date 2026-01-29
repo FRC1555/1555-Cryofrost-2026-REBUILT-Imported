@@ -169,11 +169,7 @@ public class RobotContainer {
 
   }
 
-//   public double getSimulationTotalCurrentDraw() {
-//     // for each subsystem with simulation
-//     // return m_coralSubSystem.getSimulationCurrentDraw()
-//     //     + m_algaeSubsystem.getSimulationCurrentDraw();
-//   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
