@@ -30,16 +30,11 @@ public class VisionSubsystem extends SubsystemBase {
         cameraR = new PhotonCamera("RightCAM");
         cameraL = new PhotonCamera("LeftCam");
 
-
         fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark);
-        // Load the AprilTagFieldLayout for the 2023 field
-       // fieldLayout = AprilTagFieldLayout(relativePath).orElseThrow(
-         //   () -> new IllegalStateException("Failed to load AprilTagFieldLayout")
-       // );
 
         // Define the transformation from the camera to the robot's center
         cameraToRobot = new Transform3d(
-            new Translation3d(0.3556, 0.0762, 0.3556), // x, y, z offsets in meters
+            new Translation3d(0.0, 0.25, 0.6), // x, y, z offsets in meters
             new Rotation3d(0.0, 0.0, 0.0)    // roll, pitch, yaw in radians
         );
     }
@@ -79,36 +74,36 @@ public class VisionSubsystem extends SubsystemBase {
         return 0.0; // Default value if no target is found
     }
 
-    //Right Camera Pitch
-    public double getTargetDistanceR(double pitchR) {
-        // Calculate distance based on the given target pitch (requires calibration)
-        // Replace with your own distance calculation formula
-        return calculateDistanceFromPitchR(pitchR);
+     //Right Camera Pitch
+     public double getTargetDistanceR(double pitchR) {
+         // Calculate distance based on the given target pitch (requires calibration)
+         // Replace with your own distance calculation formula
+         return calculateDistanceFromPitchR(pitchR);
     }
 
-    //Right Camera Pitch Math
-    private double calculateDistanceFromPitchR(double pitchR) {
-        // Example formula: distance = (targetHeight - cameraHeight) / tan(cameraAngle + pitch)
-        double targetHeightR = 2.5; // Replace with the height of your target in meters
-        double cameraHeightR = 1.0; // Replace with the height of your camera in meters
-        double cameraAngleR = Math.toRadians(30); // Replace with your camera's mounting angle in radians
-        return (targetHeightR - cameraHeightR) / Math.tan(cameraAngleR + Math.toRadians(pitchR));
+     //Right Camera Pitch Math
+     private double calculateDistanceFromPitchR(double pitchR) {
+          //Example formula: distance = (targetHeight - cameraHeight) / tan(cameraAngle + pitch)
+         double targetHeightR = 2.5; // Replace with the height of your target in meters
+         double cameraHeightR = 0.6; // Replace with the height of your camera in meters
+         double cameraAngleR = Math.toRadians(0.79); // Replace with your camera's mounting angle in radians
+         return (targetHeightR - cameraHeightR) / Math.tan(cameraAngleR + Math.toRadians(pitchR));
     }
 
-    //Left Camera Pitch
-    public double getTargetDistanceL(double pitchL) {
-        // Calculate distance based on the given target pitch (requires calibration)
-        // Replace with your own distance calculation formula
-        return calculateDistanceFromPitchL(pitchL);
+     //Left Camera Pitch
+     public double getTargetDistanceL(double pitchL) {
+         // Calculate distance based on the given target pitch (requires calibration)
+         // Replace with your own distance calculation formula
+         return calculateDistanceFromPitchL(pitchL);
     }
 
     //Left Camera Pitch Math
-    private double calculateDistanceFromPitchL(double pitchL) {
-        // Example formula: distance = (targetHeight - cameraHeight) / tan(cameraAngle + pitch)
-        double targetHeightL = 2.5; // Replace with the height of your target in meters
-        double cameraHeightL = 1.0; // Replace with the height of your camera in meters
-        double cameraAngleL = Math.toRadians(30); // Replace with your camera's mounting angle in radians
-        return (targetHeightL - cameraHeightL) / Math.tan(cameraAngleL + Math.toRadians(pitchL));
+     private double calculateDistanceFromPitchL(double pitchL) {
+         // Example formula: distance = (targetHeight - cameraHeight) / tan(cameraAngle + pitch)
+         double targetHeightL = 2.5; // Replace with the height of your target in meters
+         double cameraHeightL = 0.6; // Replace with the height of your camera in meters
+         double cameraAngleL = Math.toRadians(0.79); // Replace with your camera's mounting angle in radians
+         return (targetHeightL - cameraHeightL) / Math.tan(cameraAngleL + Math.toRadians(pitchL));
     }
 
 
@@ -130,7 +125,6 @@ public class VisionSubsystem extends SubsystemBase {
         }
         return Optional.empty();
     } 
-
     
     public Optional<Pose2d> getEstimatedPoseL() {
         PhotonPipelineResult resultL = cameraL.getLatestResult();
@@ -183,6 +177,7 @@ public class VisionSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Target SkewR", bestTargetR.getSkew());
             SmartDashboard.putNumber("Target IDR", bestTargetR.getFiducialId());
 
+
             // Publish the number of targets detected
             SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
         } else {
@@ -205,6 +200,7 @@ public class VisionSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Target AreaL", bestTargetL.getArea());
             SmartDashboard.putNumber("Target SkewL", bestTargetL.getSkew());
             SmartDashboard.putNumber("Target IDL", bestTargetL.getFiducialId());
+
 
             // Publish the number of targets detected
             SmartDashboard.putNumber("Number of TargetsL", resultL.getTargets().size());
@@ -256,8 +252,7 @@ public class VisionSubsystem extends SubsystemBase {
     } else {
         SmartDashboard.putString("FusedPoseStatus", "No targets");
     }
-    
+
     }
-    
 }
 
