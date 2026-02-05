@@ -38,7 +38,12 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         cameraToRobotR = new Transform3d(
             new Translation3d(0.0, 0.25, 0.6), // x, y, z offsets in meters
             new Rotation3d(0.0, 0.0, 0.0) ); // roll, pitch, yaw in radians
+
+        // Initialize the pose estimator after fieldLayout and cameraToRobotR are set
+        // photonEstimatorR = new PhotonPoseEstimator(fieldLayout, PhotonPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS, cameraToRobotR);
     }
+
+    
 
     //Right Target Camera
     public boolean hasTargetR() {
@@ -76,10 +81,12 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         return fieldLayout;
     }
 
-    public Transform3d getCameraToRobotR() {
-        return cameraToRobotR;
-    }
+    // public Transform3d getCameraToRobotR() {
+    // private final PhotonPoseEstimator photonEstimatorR;
+    // }
 
+    // PhotonPoseEstimator photonEstimatorR = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS,cameraToRobotR);
+    
         @Override
     public void periodic() {
 
@@ -87,37 +94,37 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         // This method will be called once per scheduler run
         PhotonPipelineResult resultR = cameraR.getLatestResult();
 
-        // Publish whether a target is detected
-        SmartDashboard.putBoolean("Has TargetR", resultR.hasTargets());
+        // // Publish whether a target is detected
+        // SmartDashboard.putBoolean("Has TargetR", resultR.hasTargets());
 
 
-        //Camera R Data
-        if (resultR.hasTargets()) {
-            PhotonTrackedTarget bestTargetR = resultR.getBestTarget();
+        // //Camera R Data
+        // if (resultR.hasTargets()) {
+        //     PhotonTrackedTarget bestTargetR = resultR.getBestTarget();
 
-            // Publish data about the best target
-            SmartDashboard.putNumber("Target YawR", bestTargetR.getYaw());
-            SmartDashboard.putNumber("Target PitchR", bestTargetR.getPitch());
-            SmartDashboard.putNumber("Target AreaR", bestTargetR.getArea());
-            SmartDashboard.putNumber("Target SkewR", bestTargetR.getSkew());
-            SmartDashboard.putNumber("Target IDR", bestTargetR.getFiducialId());
-            SmartDashboard.putNumber("Target DistanceR", getTargetDistanceR(bestTargetR.getPitch()));
-            SmartDashboard.putNumber("TransForm3DR(X)", getCameraToRobotR().getTranslation().getX());
-            SmartDashboard.putNumber("TransForm3DR(Y)", getCameraToRobotR().getTranslation().getY());
-            SmartDashboard.putNumber("TransForm3DR(Z)", getCameraToRobotR().getTranslation().getZ()); // Example: publish Z component of transform
+        //     // Publish data about the best target
+        //     SmartDashboard.putNumber("Target YawR", bestTargetR.getYaw());
+        //     SmartDashboard.putNumber("Target PitchR", bestTargetR.getPitch());
+        //     SmartDashboard.putNumber("Target AreaR", bestTargetR.getArea());
+        //     SmartDashboard.putNumber("Target SkewR", bestTargetR.getSkew());
+        //     SmartDashboard.putNumber("Target IDR", bestTargetR.getFiducialId());
+        //     SmartDashboard.putNumber("Target DistanceR", getTargetDistanceR(bestTargetR.getPitch()));
+        //     SmartDashboard.putNumber("TransForm3DR(X)", getCameraToRobotR().getTranslation().getX());
+        //     SmartDashboard.putNumber("TransForm3DR(Y)", getCameraToRobotR().getTranslation().getY());
+        //     SmartDashboard.putNumber("TransForm3DR(Z)", getCameraToRobotR().getTranslation().getZ()); // Example: publish Z component of transform
 
 
-            // Publish the number of targets detected
-            SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
-        } else {
-            // Clear the data if no target is detected
-            SmartDashboard.putNumber("Target YawR", 0.0);
-            SmartDashboard.putNumber("Target PitchR", 0.0);
-            SmartDashboard.putNumber("Target AreaR", 0.0);
-            SmartDashboard.putNumber("Target SkewR", 0.0);
-            SmartDashboard.putNumber("Target IDR", -1);
-            SmartDashboard.putNumber("Number of TargetsR", 0);
-        }
+        //     // Publish the number of targets detected
+        //     SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
+        // } else {
+        //     // Clear the data if no target is detected
+        //     SmartDashboard.putNumber("Target YawR", 0.0);
+        //     SmartDashboard.putNumber("Target PitchR", 0.0);
+        //     SmartDashboard.putNumber("Target AreaR", 0.0);
+        //     SmartDashboard.putNumber("Target SkewR", 0.0);
+        //     SmartDashboard.putNumber("Target IDR", -1);
+        //     SmartDashboard.putNumber("Number of TargetsR", 0);
+        // }
 }
 }
 
