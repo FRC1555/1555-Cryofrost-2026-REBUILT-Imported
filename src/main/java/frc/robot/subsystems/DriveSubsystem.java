@@ -68,7 +68,7 @@ public class DriveSubsystem extends SubsystemBase {
   private double rotDelivered; 
 
   // Vision subsystem
-  private final VisionSubsystem m_visionSubsystem;
+  private final VisionSubSystem2026Rebuilt m_visionSubsystem;
 
   //Speed Control variables
   public double currentDriveSpeed = 0.5;
@@ -91,7 +91,7 @@ public class DriveSubsystem extends SubsystemBase {
        m_odometry.addVisionMeasurement(visionPose, timestamp);
     }
   // Creates a new DriveSubsystem. 
-  public DriveSubsystem(VisionSubsystem m_visionSubsystem) {
+  public DriveSubsystem(VisionSubSystem2026Rebuilt m_visionSubsystem) {
     this.m_visionSubsystem = m_visionSubsystem;
     m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(.5, .5, 9999999));
     RobotConfig config = null;
@@ -160,11 +160,11 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
-        // Inject vision data into odometry
-    Optional<Pose2d> fusedPose = m_visionSubsystem.getEstimatedPose();
-    fusedPose.ifPresent(pose -> {
-        m_odometry.addVisionMeasurement(pose, Timer.getFPGATimestamp());
-    });
+    //     // Inject vision data into odometry
+    // Optional<Pose2d> pose = m_visionSubsystem.getEstimatedPose();
+    // pose.ifPresent(pose -> {
+    //     m_odometry.addVisionMeasurement(pose, Timer.getFPGATimestamp());
+    // });
   }
 
   /**

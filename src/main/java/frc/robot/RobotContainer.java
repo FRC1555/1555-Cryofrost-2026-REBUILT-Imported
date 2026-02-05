@@ -39,7 +39,7 @@ import frc.robot.Constants.OIConstants;
 // import frc.robot.subsystems.CoralSubsystem;
 // import frc.robot.subsystems.CoralSubsystem.Setpoint;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.VisionSubSystem2026Rebuilt;
 import java.util.List;
 
 
@@ -54,7 +54,7 @@ public class RobotContainer {
   // The robot's subsystems
 //   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
-  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem("flAPtag");
+  private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
   private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
 
   // The driver's controller
