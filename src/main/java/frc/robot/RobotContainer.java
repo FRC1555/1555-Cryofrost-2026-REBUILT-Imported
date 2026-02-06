@@ -54,8 +54,8 @@ public class RobotContainer {
   // The robot's subsystems
 //   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
-  private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
+    private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
+    private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
 
   // The driver's controller
   public Joystick m_driverController =
