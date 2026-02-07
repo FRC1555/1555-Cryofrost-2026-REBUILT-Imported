@@ -16,6 +16,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -160,11 +161,15 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
-    //     // Inject vision data into odometry
-    // Optional<Pose2d> pose = m_visionSubsystem.getEstimatedPose();
-    // pose.ifPresent(pose -> {
-    //     m_odometry.addVisionMeasurement(pose, Timer.getFPGATimestamp());
-    // });
+    // Inject vision data into odometry: query the Vision subsystem for an estimated Pose2d
+    m_visionSubsystem.getEstimatedPose2d().ifPresent(pose2d -> {
+      double timestamp = Timer.getFPGATimestamp();
+      // Add the vision measurement to the pose estimator
+      m_odometry.addVisionMeasurement(pose2d, timestamp);
+      SmartDashboard.putString("Vision/EstimatedPose", pose2d.toString());
+    });
+
+
   }
 
   /**
