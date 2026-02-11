@@ -72,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final VisionSubSystem2026Rebuilt m_visionSubsystem;
 
   //Speed Control variables
-  public double currentDriveSpeed = 0.5;
+  public double currentDriveSpeed = 2;
 
 
 
@@ -120,7 +120,7 @@ public class DriveSubsystem extends SubsystemBase {
 
               var alliance = DriverStation.getAlliance();
               if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
+                return alliance.get() == DriverStation.Alliance.Blue;
               }
               return false;
             },
@@ -167,6 +167,9 @@ public class DriveSubsystem extends SubsystemBase {
       // Add the vision measurement to the pose estimator
       m_odometry.addVisionMeasurement(pose2d, timestamp);
       SmartDashboard.putString("Vision/EstimatedPose", pose2d.toString());
+
+      SmartDashboard.putNumber("XSpeed", xSpeedDelivered);
+      SmartDashboard.putNumber("YSpeed", ySpeedDelivered);
     });
 
 
