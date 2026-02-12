@@ -13,6 +13,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.revrobotics.spark.SparkFlex;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -59,6 +60,9 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRearRightDrivingCanId,
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
+
+  private final SparkFlex m_intakeMotor = new SparkFlex(Constants.DriveConstants.kNewIntakeMotorCanId, SparkFlex.MotorType.kBrushless);
+  private final SparkFlex m_shooterMotor = new SparkFlex(Constants.DriveConstants.kShooteerMotorCanId, SparkFlex.MotorType.kBrushless);
   
   // The gyro sensor
   private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
@@ -73,6 +77,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   //Speed Control variables
   public double currentDriveSpeed = 2;
+
+  public double intakeMotorSpeed = 1;
+  public double shooterMotorSpeed = 1;
 
 
 
@@ -91,6 +98,11 @@ public class DriveSubsystem extends SubsystemBase {
     public void updateOdometryWithVision(Pose2d visionPose, double timestamp) {
        m_odometry.addVisionMeasurement(visionPose, timestamp);
     }
+
+    public void IntakeSystem(){
+    m_intakeMotor.set(intakeMotorSpeed);
+    m_shooterMotor.set(shooterMotorSpeed);
+  }
   // Creates a new DriveSubsystem. 
   public DriveSubsystem(VisionSubSystem2026Rebuilt m_visionSubsystem) {
     this.m_visionSubsystem = m_visionSubsystem;
@@ -102,6 +114,7 @@ public class DriveSubsystem extends SubsystemBase {
     catch(Exception e){
       e.printStackTrace();
     }
+
     // Configure AutoBuilder last
     AutoBuilder.configure(
             this::getPose, // Robot pose supplier
@@ -205,6 +218,12 @@ public class DriveSubsystem extends SubsystemBase {
         pose);
   }
 
+  public void setintakeMotorSpeed(double newIntakeMotorSpeed){
+    intakeMotorSpeed = newIntakeMotorSpeed;
+  };
+  public void setshooterMotorSpeed(double newShooterMotorSpeed){
+    shooterMotorSpeed = newShooterMotorSpeed;
+  };
 
   public void setDriveSpeed(double newDriveSpeed){
     currentDriveSpeed = newDriveSpeed;

@@ -99,7 +99,12 @@ public final class Constants {
     public static final int kRearRightTurningCanId = 9;
 
     public static final boolean kGyroReversed = false;
+
+    //SPARK FLEX CAN IDs
+    public static final int kNewIntakeMotorCanId = 17; // Intake Motor
+    public static final int kShooteerMotorCanId = 16; // Shooter Motor
   }
+  
 
   public static final class ModuleConstants { //#MaxSwerve
     // The MAXSwerve module can be configured with one of three pinion gears: 12T,

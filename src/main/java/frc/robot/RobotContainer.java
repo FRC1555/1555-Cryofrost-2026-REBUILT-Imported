@@ -41,6 +41,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubSystem2026Rebuilt;
 import java.util.List;
+import java.util.Queue;
 
 
 /*
@@ -56,6 +57,7 @@ public class RobotContainer {
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
     private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
+    
 
   // The driver's controller
   public Joystick m_driverController =
@@ -81,6 +83,8 @@ public class RobotContainer {
     // NamedCommands.registerCommand("L2", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
     // NamedCommands.registerCommand("L3", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
     // NamedCommands.registerCommand("L4", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
+
+    NamedCommands.registerCommand("Spin Intake", new InstantCommand(() -> m_robotDrive.IntakeSystem()));
     //building the auto chooser on smartdashboard
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -113,7 +117,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-
+    //Right Triger -> Run Intake Motor
+    // m_manipController.rightTrigger().whileTrue(new InstantCommand(() -> .setintakeMotorSpeed(1)));
 
     // // Left Bumper -> Run tube intake
     // m_manipController.rightBumper().whileTrue(m_coralSubSystem.runIntakeCommand());
