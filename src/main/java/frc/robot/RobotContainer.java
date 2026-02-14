@@ -16,8 +16,10 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.revrobotics.spark.SparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.event.EventLoop;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -83,8 +85,6 @@ public class RobotContainer {
     // NamedCommands.registerCommand("L2", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
     // NamedCommands.registerCommand("L3", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
     // NamedCommands.registerCommand("L4", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
-
-    NamedCommands.registerCommand("Spin Intake", new InstantCommand(() -> m_robotDrive.IntakeSystem()));
     //building the auto chooser on smartdashboard
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -117,8 +117,33 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    //Right Triger -> Run Intake Motor
-    // m_manipController.rightTrigger().whileTrue(new InstantCommand(() -> .setintakeMotorSpeed(1)));
+    //Button A, go forward 90 degrees
+    m_manipController.a().whileTrue(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = 0.02)));
+    //Button A, go back 90 degrees
+    m_manipController.a().onFalse(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = 0.00)));
+
+    m_manipController.y().whileTrue(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = -0.02)));
+
+    m_manipController.y().onFalse(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = 0.00)));
+
+//     //Button X, raise intake arm
+//       m_manipController.x().onTrue(
+//     new InstantCommand(
+//         () -> {
+//             DriveSubsystem.m_intakeMotorArm.set(DriveSubsystem.IntakeArmAngleDegrees = 0.0);
+//         }
+//     )
+// );
+//     //Button B, lower intake arm
+//     m_manipController.b().onTrue(
+//     new InstantCommand(
+//         () -> {
+//             DriveSubsystem.m_intakeMotorArm.set(DriveSubsystem.IntakeArmAngleDegrees = 90.0);
+//         }
+//     )
+// );
+
+    // m_controller.setSetpoint(setPoint, ControlType.kPosition);
 
     // // Left Bumper -> Run tube intake
     // m_manipController.rightBumper().whileTrue(m_coralSubSystem.runIntakeCommand());
