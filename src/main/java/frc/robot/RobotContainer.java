@@ -45,6 +45,8 @@ import frc.robot.subsystems.VisionSubSystem2026Rebuilt;
 import java.util.List;
 import java.util.Queue;
 
+import frc.robot.subsystems.IntakeSubsystem;
+
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -116,68 +118,26 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+/* UN COMMENT THIS TO ADD INTAK SUBSYTEM CONTROL BACK IN
+    //run intake in
+    m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 10)));
+    
+    m_manipController.a().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+    //Run intake out
+    m_manipController.y().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -10)));
 
-    //Button A, go forward 90 degrees
-    m_manipController.a().whileTrue(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = 0.02)));
-    //Button A, go back 90 degrees
-    m_manipController.a().onFalse(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = 0.00)));
+    m_manipController.y().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
-    m_manipController.y().whileTrue(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = -0.02)));
+        //run arm in
+    m_manipController.b().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.02)));
+    
+    m_manipController.b().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+    //Run arm out
+    m_manipController.x().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = -0.02)));
 
-    m_manipController.y().onFalse(new RunCommand(() -> DriveSubsystem.m_intakeMotor.set(DriveSubsystem.intakeMotorSpeed = 0.00)));
-
-//     //Button X, raise intake arm
-//       m_manipController.x().onTrue(
-//     new InstantCommand(
-//         () -> {
-//             DriveSubsystem.m_intakeMotorArm.set(DriveSubsystem.IntakeArmAngleDegrees = 0.0);
-//         }
-//     )
-// );
-//     //Button B, lower intake arm
-//     m_manipController.b().onTrue(
-//     new InstantCommand(
-//         () -> {
-//             DriveSubsystem.m_intakeMotorArm.set(DriveSubsystem.IntakeArmAngleDegrees = 90.0);
-//         }
-//     )
-// );
-
-    // m_controller.setSetpoint(setPoint, ControlType.kPosition);
-
-    // // Left Bumper -> Run tube intake
-    // m_manipController.rightBumper().whileTrue(m_coralSubSystem.runIntakeCommand());
-
-    // // Right Bumper -> Run tube intake in reverse
-    // m_manipController.leftBumper().whileTrue(m_coralSubSystem.reverseIntakeCommand());
-
-    // // B Button -> Elevator/Arm to human player position, set ball intake to stow
-    // // when idle
-    // m_manipController
-    //     .b()
-    //     .onTrue(
-    //         m_coralSubSystem
-    //             .setSetpointCommand(Setpoint.kFeederStation)
-    //             .alongWith(m_algaeSubsystem.stowCommand()));
-
-    // // A Button -> Elevator/Arm to level 2 position
-    // m_manipController.a().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
-
-    // // X Button -> Elevator/Arm to level 3 position
-    // m_manipController.x().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
-
-    // // Y Button -> Elevator/Arm to level 4 position
-    // m_manipController.y().onTrue(m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
-
-    // // Right Trigger -> Run ball intake, set to leave out when idle
-    // m_manipController
-    //     .rightTrigger(OIConstants.kTriggerButtonThreshold)
-    //     .whileTrue(m_algaeSubsystem.runIntakeCommand());
-
-    // // Left Trigger -> Run ball intake in reverse, set to stow when idle
-    // m_manipController
-    //     .leftTrigger(OIConstants.kTriggerButtonThreshold)
-    //     .whileTrue(m_algaeSubsystem.reverseIntakeCommand());
+    m_manipController.x().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+ 
+*/
 
     // Turtle Beach Button 1 or Colored A -> Set Robot Speed to Full Send (Child Detected)
     fullSendButton.onTrue(new InstantCommand(() -> m_robotDrive.setDriveSpeed(1)));

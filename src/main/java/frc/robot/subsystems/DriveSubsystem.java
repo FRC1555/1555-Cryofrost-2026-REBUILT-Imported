@@ -61,8 +61,8 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
-  public static SparkFlex m_intakeMotor = new SparkFlex(Constants.DriveConstants.kNewIntakeMotorCanId, SparkFlex.MotorType.kBrushless);
-  public static SparkFlex m_intakeMotorArm = new SparkFlex(Constants.DriveConstants.kShooteerMotorCanId, SparkFlex.MotorType.kBrushless);
+  
+
   
   // The gyro sensor
   private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
@@ -77,13 +77,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   //Speed Control variables
   public double currentDriveSpeed = 2;
-
-  public static double intakeMotorSpeed = 0.02;
-  public static double intakeArmMotorSpeed = 0.02;
-
-  public static double IntakeArmAngleDegrees = 0;
-
-
 
   // Odometry class for tracking robot pose
   SwerveDrivePoseEstimator m_odometry = new SwerveDrivePoseEstimator(
@@ -101,10 +94,7 @@ public class DriveSubsystem extends SubsystemBase {
        m_odometry.addVisionMeasurement(visionPose, timestamp);
     }
 
-    public void IntakeSystem(){
-    m_intakeMotor.set(intakeMotorSpeed);
-    m_intakeMotorArm.set(intakeArmMotorSpeed);
-  }
+
   // Creates a new DriveSubsystem. 
   public DriveSubsystem(VisionSubSystem2026Rebuilt m_visionSubsystem) {
     this.m_visionSubsystem = m_visionSubsystem;
@@ -218,16 +208,6 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearRight.getPosition()
         },
         pose);
-  }
-
-  public void setintakeMotorSpeed(double newIntakeMotorSpeed){
-    intakeMotorSpeed = newIntakeMotorSpeed;
-  };
-  public void setIntakeArmMotorSpeed(double newIntakeMotorArmSpeed){
-    intakeArmMotorSpeed = newIntakeMotorArmSpeed;
-  };
-  public void setIntakeArmAngleDegrees(double newAngleDegrees){
-    IntakeArmAngleDegrees = newAngleDegrees;
   }
 
   public void setDriveSpeed(double newDriveSpeed){

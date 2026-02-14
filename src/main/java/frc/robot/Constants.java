@@ -102,7 +102,7 @@ public final class Constants {
 
     //SPARK FLEX CAN IDs
     public static final int kNewIntakeMotorCanId = 17; // Intake Motor
-    public static final int kShooteerMotorCanId = 16; // Shooter Motor
+    public static final int kIntakeMotorArm = 16; // Shooter Motor
   }
   
 
