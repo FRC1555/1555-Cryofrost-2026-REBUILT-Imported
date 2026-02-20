@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Queue;
 
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 
 /*
@@ -59,6 +60,7 @@ public class RobotContainer {
   // The robot's subsystems
 //   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
+    private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
     
@@ -118,6 +120,11 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(1)));
+    m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
+
+    m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(-1)));
+    m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
 /* UN COMMENT THIS TO ADD INTAK SUBSYTEM CONTROL BACK IN
     //run intake in
     m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 10)));

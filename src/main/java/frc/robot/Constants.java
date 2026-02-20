@@ -19,49 +19,49 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-  public static final class CoralSubsystemConstants { //#CoralSystem
-    public static final int kElevatorMotorCanId = 4;
-    public static final int kArmMotorCanId = 3;
-    public static final int kIntakeMotorCanId = 2;
+  // public static final class CoralSubsystemConstants { //#CoralSystem
+  //   public static final int kElevatorMotorCanId = 4;
+  //   public static final int kArmMotorCanId = 3;
+  //   public static final int kIntakeMotorCanId = 2;
 
-    public static final class ElevatorSetpoints {
-      public static final int kFeederStation = 0;
-      public static final int kLevel1 = 0;
-      public static final int kLevel2 = 0;
-      public static final int kLevel3 = -75;
-      public static final int kLevel4 = -147; // Do NOT touch this number, this is the maximum before it hits the turnbuckle
-    }
+  //   public static final class ElevatorSetpoints {
+  //     public static final int kFeederStation = 0;
+  //     public static final int kLevel1 = 0;
+  //     public static final int kLevel2 = 0;
+  //     public static final int kLevel3 = -75;
+  //     public static final int kLevel4 = -147; // Do NOT touch this number, this is the maximum before it hits the turnbuckle
+  //   }
 
-    public static final class ArmSetpoints {
-      public static final double kFeederStation = -5;
-      public static final double kLevel1 = 0;
-      public static final double kLevel2 = -36;
-      public static final double kLevel3 = -36;
-      public static final double kLevel4 = -34;
-    }
+  //   public static final class ArmSetpoints {
+  //     public static final double kFeederStation = -5;
+  //     public static final double kLevel1 = 0;
+  //     public static final double kLevel2 = -36;
+  //     public static final double kLevel3 = -36;
+  //     public static final double kLevel4 = -34;
+  //   }
 
-    public static final class IntakeSetpoints {
-      public static final double kForward = -0.5;
-      public static final double kReverse = 0.5;
-    }
-  }
+  //   public static final class IntakeSetpoints {
+  //     public static final double kForward = -0.5;
+  //     public static final double kReverse = 0.5;
+  //   }
+  // }
 
-  public static final class AlgaeSubsystemConstants { //#AlgaeSystem
-    public static final int kIntakeMotorCanId = 13;
-    public static final int kPivotMotorCanId = 14;
+  // public static final class AlgaeSubsystemConstants { //#AlgaeSystem
+  //   public static final int kIntakeMotorCanId = 13;
+  //   public static final int kPivotMotorCanId = 14;
 
-    public static final class ArmSetpoints {
-      public static final double kStow = 0;
-      public static final double kHold = -11.5;
-      public static final double kDown = -35;
-    }
+  //   public static final class ArmSetpoints {
+  //     public static final double kStow = 0;
+  //     public static final double kHold = -11.5;
+  //     public static final double kDown = -35;
+  //   }
 
-    public static final class IntakeSetpoints {
-      public static final double kForward = 0.6;
-      public static final double kReverse = -0.5;
-      public static final double kHold = 0.4;
-    }
-  }
+  //   public static final class IntakeSetpoints {
+  //     public static final double kForward = 0.6;
+  //     public static final double kReverse = -0.5;
+  //     public static final double kHold = 0.4;
+  //   }
+  // }
 
   public static final class DriveConstants { //#DriveSystem
     // Driving Parameters - Note that these are not the maximum capable speeds of
@@ -102,7 +102,7 @@ public final class Constants {
 
     //SPARK FLEX CAN IDs
     public static final int kNewIntakeMotorCanId = 17; // Intake Motor
-    public static final int kIntakeMotorArm = 16; // Shooter Motor
+    public static final int kIntakeMotorArm = 16; // Intake Arm Motor
   }
   
 

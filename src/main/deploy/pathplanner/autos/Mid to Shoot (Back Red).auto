@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "Mid to Shoot (Back Red)"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Autos for 2026 (Red)",
   "choreoAuto": false
 }

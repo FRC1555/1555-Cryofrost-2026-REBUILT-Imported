@@ -94,7 +94,6 @@ public class DriveSubsystem extends SubsystemBase {
        m_odometry.addVisionMeasurement(visionPose, timestamp);
     }
 
-
   // Creates a new DriveSubsystem. 
   public DriveSubsystem(VisionSubSystem2026Rebuilt m_visionSubsystem) {
     this.m_visionSubsystem = m_visionSubsystem;
