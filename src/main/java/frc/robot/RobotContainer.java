@@ -47,6 +47,8 @@ import java.util.Queue;
 
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TransferSubSystem;
+import frc.robot.subsystems.ConveyerBeltSubSystem;
 
 
 /*
@@ -120,31 +122,42 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    //Shooter Subsystem
     m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(1)));
     m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
 
     m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(-1)));
     m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
-/* UN COMMENT THIS TO ADD INTAK SUBSYTEM CONTROL BACK IN
+
     //run intake in
     m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 10)));
-    
     m_manipController.a().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+
     //Run intake out
     m_manipController.y().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -10)));
-
     m_manipController.y().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
         //run arm in
     m_manipController.b().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.02)));
-    
     m_manipController.b().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+
     //Run arm out
     m_manipController.x().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = -0.02)));
-
     m_manipController.x().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
- 
-*/
+
+    //Transfer and Conveyer Motor in
+    m_manipController.rightBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.2)));
+    m_manipController.rightBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
+    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.2)));
+    m_manipController.rightBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
+
+    //Transfer and Conveyer Motor out
+    m_manipController.leftBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = -0.2)));
+    m_manipController.leftBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
+    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -0.2)));
+    m_manipController.leftBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
+    
 
     // Turtle Beach Button 1 or Colored A -> Set Robot Speed to Full Send (Child Detected)
     fullSendButton.onTrue(new InstantCommand(() -> m_robotDrive.setDriveSpeed(1)));

@@ -4,7 +4,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class IntakeSubsystem {
-    /* 
+    
     public final static SparkFlex intakeMotorArm = new SparkFlex(16, MotorType.kBrushless);
     public final static SparkFlex intakeMotor = new SparkFlex(17, MotorType.kBrushless);
 
@@ -25,5 +25,5 @@ public class IntakeSubsystem {
   
 //   public void setIntakeArmAngleDegrees(double newAngleDegrees){
 //     IntakeArmAngleDegrees = newAngleDegrees;
-//   } */
+//   } 
 }
