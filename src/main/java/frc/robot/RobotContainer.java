@@ -147,15 +147,15 @@ public class RobotContainer {
     m_manipController.x().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
     //Transfer and Conveyer Motor in
-    m_manipController.rightBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.2)));
-    m_manipController.rightBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
-    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.2)));
+    // m_manipController.rightBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = -1)));
+    // m_manipController.rightBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
+    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 1)));
     m_manipController.rightBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
 
     //Transfer and Conveyer Motor out
-    m_manipController.leftBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = -0.2)));
-    m_manipController.leftBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
-    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -0.2)));
+    // m_manipController.leftBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 1)));
+    // m_manipController.leftBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
+    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -1)));
     m_manipController.leftBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
     
 

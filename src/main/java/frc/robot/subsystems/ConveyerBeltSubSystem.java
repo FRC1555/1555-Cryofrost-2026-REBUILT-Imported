@@ -14,7 +14,7 @@ public class ConveyerBeltSubSystem {
     public void ConveyerSystem(){
     ConveyerMotor.set(ConveyerSpeed);
   }
-    public void setintakeMotorSpeed(double newConveyerMotorSpeed){
+    public void setConveyerMotorSpeed(double newConveyerMotorSpeed){
     ConveyerSpeed = newConveyerMotorSpeed;
   };
   
