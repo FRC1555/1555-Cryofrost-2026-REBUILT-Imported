@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Corral to Shoot (Red)"
+            "pathName": "Mid to Shoot (Blue)"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Autos for 2026 (Red)",
+  "folder": "Autos for 2026 (Blue)",
   "choreoAuto": false
 }

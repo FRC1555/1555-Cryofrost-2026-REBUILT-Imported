@@ -25,5 +25,9 @@ public class IntakeSubsystem {
   
 //   public void setIntakeArmAngleDegrees(double newAngleDegrees){
 //     IntakeArmAngleDegrees = newAngleDegrees;
-//   } 
+//   }
+
+    public void IntakeArmSystem(){
+    intakeMotorArm.set(IntakeArmAngleSpeed);
+}
 }

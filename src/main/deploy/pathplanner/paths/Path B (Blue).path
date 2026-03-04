@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.103897727272729,
-        "y": 7.43625
+        "x": 3.3948749999999994,
+        "y": 4.065920454545455
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.103897727272715,
-        "y": 7.43625
+        "x": 3.4185772731569983,
+        "y": 4.314794322693943
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 16.010420454545457,
-        "y": 7.147659090909091
+        "x": 3.3948749999999994,
+        "y": 7.374409090909092
       },
       "prevControl": {
-        "x": 16.00538636363636,
-        "y": 7.660423295454546
-      },
-      "nextControl": {
-        "x": 16.015454545454553,
-        "y": 6.634894886363636
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 15.124034090909092,
-        "y": 5.385193181818182
-      },
-      "prevControl": {
-        "x": 14.124034090909092,
-        "y": 5.385193181818182
+        "x": 3.3845681818181808,
+        "y": 7.096125000000001
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -149.19855402386315
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Paths for 2026 (Red)",
+  "folder": "Paths for 2026 (Blue)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.56921278299137
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

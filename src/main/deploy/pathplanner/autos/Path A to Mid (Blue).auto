@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid to Shoot (Front)"
+            "pathName": "Path A (Blue)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mid to Shoot (Blue)"
           }
         }
       ]

@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.09359090909091,
-        "y": 7.508397727272728
+        "x": 13.093590909086581,
+        "y": 7.364102272727218
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.745068181818182,
-        "y": 8.96165909090909
+        "x": 7.362999999995672,
+        "y": 8.879204545454549
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 11.547568181821221,
-        "y": 0.5100681818172985
+        "x": 9.578965909095963,
+        "y": 0.5306818181869222
       },
       "prevControl": {
-        "x": 10.466767939784305,
-        "y": 0.21612669339721613
+        "x": 8.46994175245383,
+        "y": 0.3738501192678322
       },
       "nextControl": {
-        "x": 14.010897727275765,
-        "y": 1.1800113636354799
+        "x": 14.680840909095961,
+        "y": 1.2521590909141955
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.928443181818182,
-        "y": 4.107147727272728
+        "x": 14.979738636363637,
+        "y": 3.261988636363636
       },
       "prevControl": {
-        "x": 13.691386363636363,
-        "y": -0.11864772727272666
+        "x": 14.742681818181818,
+        "y": -0.9638068181818182
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,16 +46,20 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.3238993710691824,
-      "rotationDegrees": -89.18257036060066
+      "waypointRelativePos": 0.21069182389937113,
+      "rotationDegrees": -152.36028076895994
     },
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -89.96850076536452
+      "rotationDegrees": -87.92873722715665
+    },
+    {
+      "waypointRelativePos": 0.9465408805031446,
+      "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 1.75,
-      "rotationDegrees": -89.51916801933278
+      "rotationDegrees": -179.8391074387896
     }
   ],
   "constraintZones": [],
@@ -71,7 +75,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.37040139158972
+    "rotation": 160.7693276243386
   },
   "reversed": false,
   "folder": "Paths for 2026 (Red)",

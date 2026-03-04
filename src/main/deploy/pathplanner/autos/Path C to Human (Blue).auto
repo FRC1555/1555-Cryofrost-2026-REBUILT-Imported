@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid to Shoot (Back)"
+            "pathName": "Path C (Blue)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Human To Shoot (Blue)"
           }
         }
       ]

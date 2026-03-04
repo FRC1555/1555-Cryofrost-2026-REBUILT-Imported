@@ -1,12 +1,15 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkFlex;
+
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class ConveyerBeltSubSystem {
-    public static final SparkFlex ConveyerMotor = new SparkFlex(3, MotorType.kBrushless);
+    public static final SparkMax ConveyerMotor = new SparkMax(3, MotorType.kBrushless);
 
-        public static double ConveyerSpeed = 0.02;      
+        public static double ConveyerSpeed = 0.02; 
+        
+        
     
         // Command a target position in *rotations* of the motor shaft
         
@@ -16,6 +19,8 @@ public class ConveyerBeltSubSystem {
   }
     public void setConveyerMotorSpeed(double newConveyerMotorSpeed){
     ConveyerSpeed = newConveyerMotorSpeed;
+
+
   };
   
     

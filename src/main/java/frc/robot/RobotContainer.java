@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
@@ -65,6 +66,7 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
+    
     
 
   // The driver's controller
@@ -124,38 +126,35 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //Shooter Subsystem
-    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(1)));
+    m_manipController.rightTrigger().whileTrue(
+        new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.6))
+            .andThen(new WaitCommand(1))
+            .andThen(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = -1))));
     m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
 
-    m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(-1)));
-    m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
-
     //run intake in
-    m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 10)));
+    m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.38)));
     m_manipController.a().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
     //Run intake out
-    m_manipController.y().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -10)));
+    m_manipController.y().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -0.38)));
     m_manipController.y().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
-        //run arm in
-    m_manipController.b().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.02)));
-    m_manipController.b().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+    //run arm in
+    m_manipController.b().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.IntakeArmAngleSpeed = -0.2)));
+    m_manipController.b().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.IntakeArmAngleSpeed = 0.00)));
 
     //Run arm out
-    m_manipController.x().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = -0.02)));
-    m_manipController.x().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+    m_manipController.x().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.IntakeArmAngleSpeed = 0.2)));
+    m_manipController.x().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.IntakeArmAngleSpeed = 0.00)));
 
-    //Transfer and Conveyer Motor in
-    // m_manipController.rightBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = -1)));
-    // m_manipController.rightBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
-    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 1)));
+    //Conveyer Motor in
+    // 2-28-2026, Fixed Bumper issue. What was it? Needs to be whileTrue. Not onTrue.
+    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 1.3)));
     m_manipController.rightBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
 
-    //Transfer and Conveyer Motor out
-    // m_manipController.leftBumper().whileTrue(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 1)));
-    // m_manipController.leftBumper().onFalse(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = 0.0)));
-    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -1)));
+    //Conveyer Motor out
+    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -1.3)));
     m_manipController.leftBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
     
 

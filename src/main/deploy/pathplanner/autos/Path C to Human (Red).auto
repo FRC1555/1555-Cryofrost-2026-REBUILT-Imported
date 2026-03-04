@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Corral to Shoot (Red)"
+            "pathName": "Path C (Red)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Human to Shoot (Red)"
           }
         }
       ]
