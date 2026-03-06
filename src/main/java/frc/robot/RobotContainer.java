@@ -116,7 +116,6 @@ public class RobotContainer {
     // Set the ball intake to in/out when not running based on internal state
     // m_algaeSubsystem.setDefaultCommand(m_algaeSubsystem.idleCommand());
   }
-
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
@@ -126,11 +125,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //Shooter Subsystem
-    m_manipController.rightTrigger().whileTrue(
-        new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.6))
-            .andThen(new WaitCommand(1))
-            .andThen(new RunCommand(() -> TransferSubSystem.transferMotor.set(TransferSubSystem.transferMotorSpeed = -1))));
+    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.6)));
     m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
+
+    m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(-0.6)));
+    m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
 
     //run intake in
     m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.38)));
@@ -150,12 +149,12 @@ public class RobotContainer {
 
     //Conveyer Motor in
     // 2-28-2026, Fixed Bumper issue. What was it? Needs to be whileTrue. Not onTrue.
-    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 1.3)));
-    m_manipController.rightBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
+    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 1.3)));
+    m_manipController.leftBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
 
     //Conveyer Motor out
-    m_manipController.leftBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -1.3)));
-    m_manipController.leftBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
+    m_manipController.rightBumper().whileTrue(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = -1.3)));
+    m_manipController.rightBumper().onFalse(new RunCommand(() -> ConveyerBeltSubSystem.ConveyerMotor.set(ConveyerBeltSubSystem.ConveyerSpeed = 0.0)));
     
 
     // Turtle Beach Button 1 or Colored A -> Set Robot Speed to Full Send (Child Detected)
@@ -173,12 +172,7 @@ public class RobotContainer {
             .onTrue(new InstantCommand(m_robotDrive::resetGyro, m_robotDrive));
         new JoystickButton(m_driverController, 8)
             .onTrue(new InstantCommand(m_robotDrive::resetGyro, m_robotDrive));
-
-
-
   }
-
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

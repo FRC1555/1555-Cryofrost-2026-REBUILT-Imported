@@ -8,7 +8,7 @@ public class ShooterSubsystem {
     private final SparkFlex ShooterMotorleft = new SparkFlex(18, MotorType.kBrushless);// Follower
     public final SparkFlex ShooterMotorRight = new SparkFlex(19, MotorType.kBrushless); // Leader
 
-    double ShooterMotorRightspeed = 1.0;
+    public double ShooterMotorRightspeed = 0.6;
     
     public void Shootersystem() {
         ShooterMotorRight.set(ShooterMotorRightspeed);
