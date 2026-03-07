@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Intake Arm Down"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "STRAIGHT"
@@ -44,6 +50,12 @@
           "type": "path",
           "data": {
             "pathName": "TURN 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

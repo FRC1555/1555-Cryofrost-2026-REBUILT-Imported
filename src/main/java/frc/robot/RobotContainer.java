@@ -137,7 +137,7 @@ public class RobotContainer {
 
     //Run intake out
     m_manipController.y().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -0.45)));
-    m_manipController.y().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+    m_manipController.y().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -0.00)));
 
     //run arm in
     m_manipController.b().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotorArm.set(IntakeSubsystem.IntakeArmAngleSpeed = -0.2)));

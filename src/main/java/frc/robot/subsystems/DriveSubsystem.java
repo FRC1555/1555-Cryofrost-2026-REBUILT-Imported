@@ -227,7 +227,7 @@ public class DriveSubsystem extends SubsystemBase {
     xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond * currentDriveSpeed;
     ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond * currentDriveSpeed;
     rotDelivered = rot * DriveConstants.kMaxAngularSpeed * currentDriveSpeed;
-
+    // SwerveModuleState[] swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(m_gyro.getAngle())));
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(
