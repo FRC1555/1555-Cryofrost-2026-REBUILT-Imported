@@ -13,7 +13,7 @@ public class ShooterSubsystem {
     public void Shootersystem() {
         ShooterMotorRight.set(ShooterMotorRightspeed);
     }
-    public void setConveyerMotorSpeed(double newShooterMotorSpeed){
+    public void setShooterMotorSpeed(double newShooterMotorSpeed){
     ShooterMotorRightspeed = newShooterMotorSpeed;
   };
 }
