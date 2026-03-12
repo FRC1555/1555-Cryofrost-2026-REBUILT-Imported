@@ -16,6 +16,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.events.EventTrigger;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.event.EventLoop;
@@ -38,9 +39,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-// import frc.robot.subsystems.AlgaeSubsystem;
-// import frc.robot.subsystems.CoralSubsystem;
-// import frc.robot.subsystems.CoralSubsystem.Setpoint;
+
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubSystem2026Rebuilt;
 import java.util.List;
@@ -50,6 +49,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubSystem;
 import frc.robot.subsystems.ConveyerBeltSubSystem;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.AutoShoot;
 
 
 /*
@@ -60,16 +61,16 @@ import frc.robot.subsystems.ConveyerBeltSubSystem;
  */
 @SuppressWarnings("unused")
 public class RobotContainer {
-  // The robot's subsystems
+  // The robot's subsystems9
+   
 //   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+    private final AutoShoot m_autoShoot = new AutoShoot();
     private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
-    
-    
 
-  // The driver's controller
+  // The driver's controlleo
   public Joystick m_driverController =
       new Joystick(OIConstants.kDriverControllerPort);
   public CommandXboxController m_manipController =
@@ -83,16 +84,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    //registering named Commands for Algae
-    // NamedCommands.registerCommand("Grab Algae", m_algaeSubsystem.runIntakeCommand());
-    // NamedCommands.registerCommand("Spit Out Algae", m_algaeSubsystem.reverseIntakeCommand());
-    // registering named commands for Coral
-    // NamedCommands.registerCommand("Grab Coral", m_coralSubSystem.runIntakeCommand());
-    // NamedCommands.registerCommand("Spit Out Coral", m_coralSubSystem.reverseIntakeCommand());
-    // NamedCommands.registerCommand("Coral Station", m_coralSubSystem.setSetpointCommand(Setpoint.kFeederStation));
-    // NamedCommands.registerCommand("L2", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel2));
-    // NamedCommands.registerCommand("L3", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel3));
-    // NamedCommands.registerCommand("L4", m_coralSubSystem.setSetpointCommand(Setpoint.kLevel4));
+    NamedCommands.registerCommand("Shoot", new AutoShoot());
+    EventTrigger shooterTrigger = new EventTrigger("Shoot");
+
     //building the auto chooser on smartdashboard
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -105,16 +99,13 @@ public class RobotContainer {
             () ->
                 m_robotDrive.drive(
                     -MathUtil.applyDeadband(
-                        m_driverController.getY(), OIConstants.kDriveDeadband),
-                    -MathUtil.applyDeadband(
                         m_driverController.getX(), OIConstants.kDriveDeadband),
+                    -MathUtil.applyDeadband(
+                        m_driverController.getY(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(
                         m_driverController.getZ(), OIConstants.kDriveDeadband),
                     true),
             m_robotDrive));
-
-    // Set the ball intake to in/out when not running based on internal state
-    // m_algaeSubsystem.setDefaultCommand(m_algaeSubsystem.idleCommand());
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -125,8 +116,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //Shooter Subsystem
-    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.75)));
+    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.62)));
     m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
+
+    //m_manipController.back().whileTrue(new RunCommand(() -> AutoShoot.Shoot()));
 
     m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(-0.6)));
     m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
@@ -134,6 +127,10 @@ public class RobotContainer {
     //run intake in
     m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.45)));
     m_manipController.a().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+
+    //full send intake
+    m_manipController.start().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 1))); 
+    m_manipController.start().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
     //Run intake out
     m_manipController.y().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = -0.45)));
