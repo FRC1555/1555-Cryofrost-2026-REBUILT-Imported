@@ -119,33 +119,33 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         if (resultR.hasTargets()) {
             PhotonTrackedTarget bestTargetR = resultR.getBestTarget();
 
-            // Publish data about the best target
-            SmartDashboard.putNumber("Target YawR", bestTargetR.getYaw());
-            SmartDashboard.putNumber("Target PitchR", bestTargetR.getPitch());
-            SmartDashboard.putNumber("Target AreaR", bestTargetR.getArea());
-            SmartDashboard.putNumber("Target SkewR", bestTargetR.getSkew());
-            SmartDashboard.putNumber("Target IDR", bestTargetR.getFiducialId());
-            SmartDashboard.putNumber("Target DistanceR", getTargetDistanceR(bestTargetR.getPitch()));
+        //     // Publish data about the best target
+        //     SmartDashboard.putNumber("Target YawR", bestTargetR.getYaw());
+        //     SmartDashboard.putNumber("Target PitchR", bestTargetR.getPitch());
+        //     SmartDashboard.putNumber("Target AreaR", bestTargetR.getArea());
+        //     SmartDashboard.putNumber("Target SkewR", bestTargetR.getSkew());
+            SmartDashboard.putNumber("Target ID", bestTargetR.getFiducialId());
+            SmartDashboard.putNumber("Target Distance", getTargetDistanceR(bestTargetR.getPitch()));
 
-            photonEstimatorR.estimateLowestAmbiguityPose(resultR).ifPresentOrElse(
-                    est -> SmartDashboard.putString("EstimatedPose", est.estimatedPose.toString()),
-                    () -> SmartDashboard.putString("EstimatedPose", "none"));
-            // SmartDashboard.putNumber("TransForm3DR(X)",
-            // getCameraToRobotR().getTranslation().getX());
-            // SmartDashboard.putNumber("TransForm3DR(Y)",
-            // getCameraToRobotR().getTranslation().getY());
-            // SmartDashboard.putNumber("TransForm3DR(Z)",
-            // getCameraToRobotR().getTranslation().getZ()); // Example: publish Z component
-            // of transform
+        //     photonEstimatorR.estimateLowestAmbiguityPose(resultR).ifPresentOrElse(
+        //             est -> SmartDashboard.putString("EstimatedPose", est.estimatedPose.toString()),
+        //             () -> SmartDashboard.putString("EstimatedPose", "none"));
+        //     // SmartDashboard.putNumber("TransForm3DR(X)",
+        //     // getCameraToRobotR().getTranslation().getX());
+        //     // SmartDashboard.putNumber("TransForm3DR(Y)",
+        //     // getCameraToRobotR().getTranslation().getY());
+        //     // SmartDashboard.putNumber("TransForm3DR(Z)",
+        //     // getCameraToRobotR().getTranslation().getZ()); // Example: publish Z component
+        //     // of transform
 
-            // Publish the number of targets detected
+        //     // Publish the number of targets detected
             SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
         } else {
-            // Clear the data if no target is detected
-            SmartDashboard.putNumber("Target YawR", 0.0);
-            SmartDashboard.putNumber("Target PitchR", 0.0);
-            SmartDashboard.putNumber("Target AreaR", 0.0);
-            SmartDashboard.putNumber("Target SkewR", 0.0);
+        //     // Clear the data if no target is detected
+        //     SmartDashboard.putNumber("Target YawR", 0.0);
+        //     SmartDashboard.putNumber("Target PitchR", 0.0);
+        //     SmartDashboard.putNumber("Target AreaR", 0.0);
+        //     SmartDashboard.putNumber("Target SkewR", 0.0);
             SmartDashboard.putNumber("Target IDR", -1);
             SmartDashboard.putNumber("Number of TargetsR", 0);
         }
