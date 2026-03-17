@@ -4,11 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.simulation.BatterySim;
 // import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.HubShiftUtil.ShiftInfo;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -49,6 +52,14 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods. This must be called from the
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
+    SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
+    ShiftInfo official = HubShiftUtil.getOfficialShiftInfo();   
+
+ // Official shift info 
+    SmartDashboard.putString("Shift/Official/CurrentShift",   official.currentShift().toString());
+    SmartDashboard.putNumber("Shift/Official/RemainingTime", Math.round(official.remainingTime()*10)/10.0);
+    SmartDashboard.putNumber("Shift/Official/ElapsedTime",   Math.round(official.elapsedTime()*10)/10.0);
+      SmartDashboard.putBoolean("Shift/Official/Active",        official.active());
     CommandScheduler.getInstance().run();
   }
 

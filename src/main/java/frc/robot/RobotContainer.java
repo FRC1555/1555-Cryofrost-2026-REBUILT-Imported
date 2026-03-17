@@ -84,8 +84,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    NamedCommands.registerCommand("Shoot", new AutoShoot());
-    EventTrigger shooterTrigger = new EventTrigger("Shoot");
+    NamedCommands.registerCommand("Shoot", m_autoShoot);
+
+
 
     //building the auto chooser on smartdashboard
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -107,6 +108,8 @@ public class RobotContainer {
                     true),
             m_robotDrive));
   }
+
+  
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
@@ -117,7 +120,7 @@ public class RobotContainer {
 
     //Shooter Subsystem
     m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.62)));
-    m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
+    m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.1)));
 
     //m_manipController.back().whileTrue(new RunCommand(() -> AutoShoot.Shoot()));
 
