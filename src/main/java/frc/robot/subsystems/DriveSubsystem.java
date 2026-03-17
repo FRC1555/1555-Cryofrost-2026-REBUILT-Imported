@@ -171,10 +171,10 @@ public class DriveSubsystem extends SubsystemBase {
       double timestamp = Timer.getFPGATimestamp();
       // Add the vision measurement to the pose estimator
       m_odometry.addVisionMeasurement(pose2d, timestamp);
-      SmartDashboard.putString("Vision/EstimatedPose", pose2d.toString());
+      // SmartDashboard.putString("Vision/EstimatedPose", pose2d.toString());
 
-      SmartDashboard.putNumber("XSpeed", xSpeedDelivered);
-      SmartDashboard.putNumber("YSpeed", ySpeedDelivered);
+      // SmartDashboard.putNumber("XSpeed", xSpeedDelivered);
+      // SmartDashboard.putNumber("YSpeed", ySpeedDelivered);
     });
 
 
