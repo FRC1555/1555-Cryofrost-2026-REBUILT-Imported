@@ -85,6 +85,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     NamedCommands.registerCommand("Shoot", m_autoShoot);
+    NamedCommands.registerCommand("Intake Down", IntakeSubsystem.IntakeAutoSystem());
 
 
 
