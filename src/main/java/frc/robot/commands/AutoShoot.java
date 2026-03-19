@@ -8,8 +8,6 @@ public class AutoShoot extends Command {
     public static Command Shoot() {
     while (true) {
     ShooterSubsystem.ShooterMotorRight.set(0.62);
-    
     }
-
 }
 }

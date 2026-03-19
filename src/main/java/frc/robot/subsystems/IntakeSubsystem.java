@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.Command;
-
 public class IntakeSubsystem {
     
     public final static SparkFlex intakeMotorArm = new SparkFlex(16, MotorType.kBrushless);
