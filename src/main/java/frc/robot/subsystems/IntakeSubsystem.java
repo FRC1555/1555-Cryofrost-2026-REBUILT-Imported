@@ -33,9 +33,5 @@ public class IntakeSubsystem {
     intakeMotorArm.set(IntakeArmAngleSpeed);
 }
 
-  public static Command IntakeAutoSystem(){
-    while (true){
-      intakeMotorArm.set(IntakeArmAngleSpeed);
-    }
-  }
+
 }

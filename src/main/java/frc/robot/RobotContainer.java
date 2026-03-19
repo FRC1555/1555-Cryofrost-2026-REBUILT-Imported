@@ -50,6 +50,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TransferSubSystem;
 import frc.robot.subsystems.ConveyerBeltSubSystem;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.AutoConveyerIn;
+import frc.robot.commands.AutoIntakeDown;
+import frc.robot.commands.AutoIntakeIn;
+import frc.robot.commands.AutoIntakeOut;
+import frc.robot.commands.AutoIntakeUp;
 import frc.robot.commands.AutoShoot;
 
 
@@ -69,6 +74,11 @@ public class RobotContainer {
     private final AutoShoot m_autoShoot = new AutoShoot();
     private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
+    private final AutoConveyerIn m_AutoConveyerIn = new AutoConveyerIn();
+    private final AutoIntakeIn m_AutoIntakeIn = new AutoIntakeIn();
+    private final AutoIntakeOut m_AutoIntakeOut = new AutoIntakeOut();
+    private final AutoIntakeDown m_AutoIntakeDown = new AutoIntakeDown();
+    private final AutoIntakeUp m_AutoIntakeUp = new AutoIntakeUp();
 
   // The driver's controlleo
   public Joystick m_driverController =
@@ -84,9 +94,13 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    NamedCommands.registerCommand("Shoot", m_autoShoot);
-    NamedCommands.registerCommand("Intake Down", IntakeSubsystem.IntakeAutoSystem());
 
+    NamedCommands.registerCommand("Shoot", m_autoShoot);
+    NamedCommands.registerCommand("IntakeDownSystem", m_AutoIntakeDown);
+    NamedCommands.registerCommand("IntakeUpSystem", m_AutoIntakeUp);
+    NamedCommands.registerCommand("IntakeInSystem", m_AutoIntakeIn);
+    NamedCommands.registerCommand("IntakeOutSystem", m_AutoIntakeOut);
+    NamedCommands.registerCommand("ConveyerIn", m_AutoConveyerIn);
 
 
     //building the auto chooser on smartdashboard
@@ -94,6 +108,8 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Chooser", autoChooser);
     // Configure the button bindings
     configureButtonBindings();
+
+
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
