@@ -5,13 +5,11 @@
   "pathFolders": [
     "D",
     "E",
-    "Paths for 2026 (Red)",
-    "Paths for 2026 (Blue)",
     "old"
   ],
   "autoFolders": [
-    "Autos for 2026 (Blue)",
-    "Autos for 2026 (Red)",
+    "New Folder",
+    "New New Folder",
     "old"
   ],
   "defaultMaxVel": 3.8,
