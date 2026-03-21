@@ -4,15 +4,10 @@
 
 package frc.robot;
 
-import java.util.Map;
-
 import edu.wpi.first.hal.can.CANStatus;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.simulation.BatterySim;
 // import edu.wpi.first.wpilibj.simulation.RoboRioSim;
@@ -41,46 +36,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    configureDiagnosticsTab();
-  }
-
-  private void configureDiagnosticsTab() {
-    // Keep electrical health widgets together for quick between-match checks.
-    ShuffleboardTab diagnosticsTab = Shuffleboard.getTab("Diagnostics");
-
-    diagnosticsTab
-        .addBoolean("CAN Bus Healthy", this::isCanBusHealthy)
-        .withWidget(BuiltInWidgets.kBooleanBox)
-        .withPosition(0, 0)
-        .withSize(2, 2)
-        .withProperties(Map.of("Color when true", "Lime", "Color when false", "Red"));
-
-    diagnosticsTab
-        .addDouble("Battery Voltage", RobotController::getBatteryVoltage)
-        .withWidget(BuiltInWidgets.kDial)
-        .withPosition(2, 0)
-        .withSize(2, 2)
-        .withProperties(Map.of("Min", 8.0, "Max", 13.5));
-
-    diagnosticsTab
-        .addBoolean("Brownout Active", RobotController::isBrownedOut)
-        .withWidget(BuiltInWidgets.kBooleanBox)
-        .withPosition(4, 0)
-        .withSize(2, 2)
-        .withProperties(Map.of("Color when true", "Red", "Color when false", "Lime"));
-
-    diagnosticsTab
-        .addDouble("CAN Utilization %", () -> getCanStatus().percentBusUtilization * 100.0)
-        .withWidget(BuiltInWidgets.kDial)
-        .withPosition(6, 0)
-        .withSize(2, 2)
-        .withProperties(Map.of("Min", 0.0, "Max", 100.0));
-
-    diagnosticsTab
-        .addString("CAN Error Summary", this::getCanErrorSummary)
-        .withWidget(BuiltInWidgets.kTextView)
-        .withPosition(0, 2)
-        .withSize(3, 1);
   }
 
   private CANStatus getCanStatus() {
@@ -126,7 +81,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Shift/Official/CurrentShift",   official.currentShift().toString());
     SmartDashboard.putNumber("Shift/Official/RemainingTime", Math.round(official.remainingTime()*10)/10.0);
     SmartDashboard.putNumber("Shift/Official/ElapsedTime",   Math.round(official.elapsedTime()*10)/10.0);
-      SmartDashboard.putBoolean("Shift/Official/Active",        official.active());
+    SmartDashboard.putBoolean("Shift/Official/Active", official.active());
+
+    // Publish electrical health directly to SmartDashboard instead of a separate Shuffleboard tab.
+    SmartDashboard.putBoolean("CAN Bus Healthy", isCanBusHealthy());
+    SmartDashboard.putNumber("Battery Voltage", RobotController.getBatteryVoltage());
+    SmartDashboard.putBoolean("Brownout Active", RobotController.isBrownedOut());
+    SmartDashboard.putNumber("CAN Utilization %", getCanStatus().percentBusUtilization * 100.0);
+    SmartDashboard.putString("CAN Error Summary", getCanErrorSummary());
+
     CommandScheduler.getInstance().run();
   }
 
