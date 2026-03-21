@@ -140,8 +140,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //Shooter Subsystem
-    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.62)));
-    m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.1)));
+    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.55)));
+    m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.0)));
 
     //m_manipController.back().whileTrue(new RunCommand(() -> AutoShoot.Shoot()));
 
@@ -149,6 +149,9 @@ public class RobotContainer {
     m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
 
     //run intake in
+    m_manipController.rightBumper().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.45)));
+    m_manipController.rightBumper().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
+
     m_manipController.a().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.45)));
     m_manipController.a().onFalse(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.00)));
 
