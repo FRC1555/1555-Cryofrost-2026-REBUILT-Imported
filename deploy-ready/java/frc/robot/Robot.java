@@ -58,9 +58,16 @@ public class Robot extends TimedRobot {
         .withProperties(Map.of("Min", 8.0, "Max", 13.5));
 
     diagnosticsTab
+        .addBoolean("Brownout Active", RobotController::isBrownedOut)
+        .withWidget(BuiltInWidgets.kBooleanBox)
+        .withPosition(4, 0)
+        .withSize(2, 2)
+        .withProperties(Map.of("Color when true", "Red", "Color when false", "Lime"));
+
+    diagnosticsTab
         .addDouble("CAN Utilization %", () -> getCanStatus().percentBusUtilization * 100.0)
         .withWidget(BuiltInWidgets.kDial)
-        .withPosition(4, 0)
+        .withPosition(6, 0)
         .withSize(2, 2)
         .withProperties(Map.of("Min", 0.0, "Max", 100.0));
 
