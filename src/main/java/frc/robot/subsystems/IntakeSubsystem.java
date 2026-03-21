@@ -1,13 +1,22 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /** Intake roller and arm control grouped into one scheduler-owned subsystem. */
 public class IntakeSubsystem extends SubsystemBase {
+  private static final int kIntakeRollerCurrentLimitAmps = 35;
+  private static final int kIntakeArmCurrentLimitAmps = 30;
+  private static final double kIntakeRollerRampSeconds = 0.10;
+  private static final double kIntakeArmRampSeconds = 0.20;
+
   // Roller and arm motors for the intake assembly.
   private final SparkFlex intakeMotorArm = new SparkFlex(16, MotorType.kBrushless);
   private final SparkFlex intakeMotor = new SparkFlex(17, MotorType.kBrushless);
@@ -15,6 +24,26 @@ public class IntakeSubsystem extends SubsystemBase {
   // Cached commanded outputs, useful if the implementation grows to closed-loop control later.
   private double intakeMotorSpeed = 0.0;
   private double intakeArmAngleSpeed = 0.0;
+
+  public IntakeSubsystem() {
+    // Roller config favors smooth engagement while the arm config favors resisting backdrive.
+    SparkFlexConfig intakeRollerConfig = new SparkFlexConfig();
+    intakeRollerConfig
+        .idleMode(IdleMode.kCoast)
+        .smartCurrentLimit(kIntakeRollerCurrentLimitAmps)
+        .openLoopRampRate(kIntakeRollerRampSeconds);
+
+    SparkFlexConfig intakeArmConfig = new SparkFlexConfig();
+    intakeArmConfig
+        .idleMode(IdleMode.kBrake)
+        .smartCurrentLimit(kIntakeArmCurrentLimitAmps)
+        .openLoopRampRate(kIntakeArmRampSeconds);
+
+    intakeMotor.configure(
+        intakeRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    intakeMotorArm.configure(
+        intakeArmConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
 
   public void setIntakeMotorSpeed(double newIntakeMotorSpeed) {
     // Apply roller speed immediately.

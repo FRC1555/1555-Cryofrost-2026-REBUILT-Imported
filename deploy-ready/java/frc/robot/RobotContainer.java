@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoConveyorIn;
 import frc.robot.commands.AutoConveyorOut;
@@ -140,12 +141,18 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    // Shooter trigger bindings: right trigger shoots, left trigger reverses to clear jams.
-    m_manipController.rightTrigger().whileTrue(m_shooterSubsystem.runShooterCommand(0.62));
-    m_manipController.rightTrigger().onFalse(m_shooterSubsystem.setShooterSpeedCommand(0.10));
+    // Debounce analog triggers slightly so noisy trigger values do not chatter the shooter.
+    Trigger shooterForwardTrigger =
+        m_manipController.rightTrigger(OIConstants.kTriggerButtonThreshold).debounce(0.05);
+    Trigger shooterReverseTrigger =
+        m_manipController.leftTrigger(OIConstants.kTriggerButtonThreshold).debounce(0.05);
 
-    m_manipController.leftTrigger().whileTrue(m_shooterSubsystem.runShooterCommand(-0.6));
-    m_manipController.leftTrigger().onFalse(m_shooterSubsystem.stopShooterCommand());
+    // Shooter trigger bindings: right trigger shoots, left trigger reverses to clear jams.
+    shooterForwardTrigger.whileTrue(m_shooterSubsystem.runShooterCommand(0.62));
+    shooterForwardTrigger.onFalse(m_shooterSubsystem.stopShooterCommand());
+
+    shooterReverseTrigger.whileTrue(m_shooterSubsystem.runShooterCommand(-0.6));
+    shooterReverseTrigger.onFalse(m_shooterSubsystem.stopShooterCommand());
 
     // Intake roller controls: normal intake, full-send intake, and reverse.
     m_manipController.a().whileTrue(m_intakeSubsystem.runIntakeCommand(0.45));
