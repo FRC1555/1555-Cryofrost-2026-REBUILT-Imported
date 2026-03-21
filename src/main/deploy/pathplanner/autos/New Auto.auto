@@ -5,33 +5,78 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Blue Auto"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Blue Auto"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootOn"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 1.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeDownOn"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootOn"
+            "name": "ConveyerIn"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 4.0
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ShootOff"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ConveyerOff"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeDownOff"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootOff"
+                }
+              }
+            ]
           }
         }
       ]

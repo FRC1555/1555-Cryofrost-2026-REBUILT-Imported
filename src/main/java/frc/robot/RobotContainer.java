@@ -13,6 +13,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+
+import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -76,7 +78,6 @@ public class RobotContainer {
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
     private final AutoConveyerIn m_AutoConveyerIn = new AutoConveyerIn();
     private final AutoIntakeIn m_AutoIntakeIn = new AutoIntakeIn();
-    private final AutoIntakeOut m_AutoIntakeOut = new AutoIntakeOut();
     private final AutoIntakeDown m_AutoIntakeDown = new AutoIntakeDown();
     private final AutoIntakeUp m_AutoIntakeUp = new AutoIntakeUp();
 
@@ -97,11 +98,13 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ShootOn", m_autoShoot.ShootOn(0.62));
     NamedCommands.registerCommand("ShootOff", m_autoShoot.ShootOff());
-    NamedCommands.registerCommand("IntakeDownSystem", m_AutoIntakeDown);
+    NamedCommands.registerCommand("IntakeDownOn", m_AutoIntakeDown.IntakeDownOn(-0.2));
+    NamedCommands.registerCommand("IntakeDownOff", m_AutoIntakeDown.IntakeDownOff());
     NamedCommands.registerCommand("IntakeUpSystem", m_AutoIntakeUp);
-    NamedCommands.registerCommand("IntakeInSystem", m_AutoIntakeIn);
-    NamedCommands.registerCommand("IntakeOutSystem", m_AutoIntakeOut);
-    NamedCommands.registerCommand("ConveyerIn", m_AutoConveyerIn);
+    NamedCommands.registerCommand("IntakeInSystem", m_AutoIntakeIn.IntakeInOn(0.45));
+    NamedCommands.registerCommand("IntakeOffSystem", m_AutoIntakeIn.IntakeOff());
+    NamedCommands.registerCommand("ConveyerIn", m_AutoConveyerIn.ConveyerIn(-1.3));
+    NamedCommands.registerCommand("ConveyerOff", m_AutoConveyerIn.ConveyerOff());
 
 
     //building the auto chooser on smartdashboard
