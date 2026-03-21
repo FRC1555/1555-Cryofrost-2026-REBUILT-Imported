@@ -7,13 +7,14 @@ The `AI` folder is now documentation-only. Students should edit the real source 
 Latest vision update:
 
 - Commit `ad18493` modernized the PhotonVision pose-estimation code to use the non-deprecated API flow.
-- The latest source snapshots for the vision cleanup are copied into the `AI` folder for easy review.
+- The active vision implementation lives in `src/main/java/frc/robot/subsystems/VisionSubSystem2026Rebuilt.java`.
 
 Latest cleanup update:
 
 - Removed WPILib template leftovers and unused previous-robot scaffolding.
 - Added and tightened documentation comments across the active robot code touched on the AI branch.
 - Reorganized the repo for student deployment readiness and removed the duplicated `AI/src` mirror.
+- Removed unused reference artifacts and dead files that were not part of the active robot build.
 
 - `src/main/deploy/pathplanner/autos/Blue Auto Shot.auto`
 - `src/main/deploy/pathplanner/autos/Red Auto Shot.auto`
