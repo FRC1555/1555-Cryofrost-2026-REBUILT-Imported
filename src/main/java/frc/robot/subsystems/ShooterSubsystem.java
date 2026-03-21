@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /** Shooter wheel control for both teleop triggers and autonomous named commands. */
 public class ShooterSubsystem extends SubsystemBase {
+  public static final double kShooterIdleSpeed = 0.10;
   private static final int kShooterCurrentLimitAmps = 50;
   private static final double kShooterOpenLoopRampSeconds = 0.20;
 
@@ -49,6 +50,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public Command setShooterSpeedCommand(double speed) {
     // Latch a shooter speed until another command changes it.
     return Commands.runOnce(() -> setShooterMotorSpeed(speed), this);
+  }
+
+  public Command idleShooterCommand() {
+    // Keep the shooter wheel lightly spinning so it can recover to full speed faster.
+    return setShooterSpeedCommand(kShooterIdleSpeed);
   }
 
   public Command stopShooterCommand() {

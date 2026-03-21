@@ -149,7 +149,7 @@ public class RobotContainer {
 
     // Shooter trigger bindings: right trigger shoots, left trigger reverses to clear jams.
     shooterForwardTrigger.whileTrue(m_shooterSubsystem.runShooterCommand(0.62));
-    shooterForwardTrigger.onFalse(m_shooterSubsystem.stopShooterCommand());
+    shooterForwardTrigger.onFalse(m_shooterSubsystem.idleShooterCommand());
 
     shooterReverseTrigger.whileTrue(m_shooterSubsystem.runShooterCommand(-0.6));
     shooterReverseTrigger.onFalse(m_shooterSubsystem.stopShooterCommand());
