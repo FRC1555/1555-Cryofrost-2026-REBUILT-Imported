@@ -174,7 +174,9 @@ simgui.json
 *-window.json
 
 # Simulation data log directory
-logs/
+logs/*
+!logs/.gitkeep
+!logs/README.md
 
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
