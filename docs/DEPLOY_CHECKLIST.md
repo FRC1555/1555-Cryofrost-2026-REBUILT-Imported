@@ -2,6 +2,7 @@
 
 ## Before You Build
 
+- Open `deploy-ready/COMPETITION_QUICK_SHEET.md` if you need the short event-day version.
 - Confirm you are on the correct branch.
 - Confirm the robot is the version you expect for this code.
 - Confirm `vendordeps/` is present and current.

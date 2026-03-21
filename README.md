@@ -19,6 +19,8 @@ Use [docs/DEPLOY_CHECKLIST.md](docs/DEPLOY_CHECKLIST.md) before practice, testin
 
 Use [docs/REPO_MAP.md](docs/REPO_MAP.md) when you need to know where to make a change.
 
+Use [deploy-ready/COMPETITION_QUICK_SHEET.md](deploy-ready/COMPETITION_QUICK_SHEET.md) for the student fast-access deployment kit.
+
 ## Current Autos
 
 - `Blue Auto Shot`
