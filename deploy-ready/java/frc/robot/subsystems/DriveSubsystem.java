@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -160,6 +161,13 @@ public class DriveSubsystem extends SubsystemBase {
       m_odometry.addVisionMeasurement(
           estimatedRobotPose.estimatedPose.toPose2d(), estimatedRobotPose.timestampSeconds);
     }
+
+    // Publish live drivetrain telemetry so drivers can confirm speed scaling and command outputs.
+    SmartDashboard.putNumber("Drive/SpeedMultiplier", currentDriveSpeed);
+    SmartDashboard.putNumber("Drive/CommandedX_mps", xSpeedDelivered);
+    SmartDashboard.putNumber("Drive/CommandedY_mps", ySpeedDelivered);
+    SmartDashboard.putNumber("Drive/CommandedRot_rps", rotDelivered);
+    SmartDashboard.putNumber("Drive/Heading_deg", getHeading());
   }
 
   public Pose2d getPose() {
