@@ -53,6 +53,10 @@ public final class Constants {
     public static final int kFrontRightTurningCanId = 7;
     public static final int kRearRightTurningCanId = 9;
 
+    // Conservative current limits for the drive modules. Raise carefully and verify motor temperature.
+    public static final int kDrivingMotorCurrentLimitAmps = 60;
+    public static final int kTurningMotorCurrentLimitAmps = 25;
+
     public static final boolean kGyroReversed = false;
 
     // SPARK FLEX CAN IDs for the intake assembly.

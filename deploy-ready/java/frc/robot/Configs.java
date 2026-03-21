@@ -5,6 +5,7 @@ import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 
 /** Motor-controller configuration shared by the active drivetrain hardware. */
@@ -21,7 +22,9 @@ public final class Configs {
       double turningFactor = 2 * Math.PI;
       double drivingVelocityFeedForward = 1 / ModuleConstants.kDriveWheelFreeSpeedRps;
 
-      drivingConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(50);
+      drivingConfig
+          .idleMode(IdleMode.kBrake)
+          .smartCurrentLimit(DriveConstants.kDrivingMotorCurrentLimitAmps);
       drivingConfig
           .encoder
           .positionConversionFactor(drivingFactor) // meters
@@ -34,7 +37,9 @@ public final class Configs {
           .velocityFF(drivingVelocityFeedForward)
           .outputRange(-1, 1);
 
-      turningConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(20);
+      turningConfig
+          .idleMode(IdleMode.kBrake)
+          .smartCurrentLimit(DriveConstants.kTurningMotorCurrentLimitAmps);
       turningConfig
           .absoluteEncoder
           // Invert the turning encoder, since the output shaft rotates in the opposite
