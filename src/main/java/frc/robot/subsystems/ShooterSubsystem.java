@@ -19,6 +19,7 @@ import frc.robot.Constants;
 /** Shooter control with encoder-based velocity regulation for more repeatable shots. */
 @SuppressWarnings("removal")
 public class ShooterSubsystem extends SubsystemBase {
+  public static final double kPrimaryShotPercent = 0.806;
   private static final double kShooterFreeSpeedRpm = Constants.NeoMotorConstants.kFreeSpeedRpm;
   private static final double kShooterVelocityP = 0.00025;
   private static final double kShooterVelocityI = 0.0;

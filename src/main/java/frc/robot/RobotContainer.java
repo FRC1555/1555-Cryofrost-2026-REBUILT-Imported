@@ -95,7 +95,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    NamedCommands.registerCommand("ShootOn", m_autoShoot.ShootOn(0.62));
+    NamedCommands.registerCommand("ShootOn", m_autoShoot.ShootOn(ShooterSubsystem.kPrimaryShotPercent));
     NamedCommands.registerCommand("ShootOff", m_autoShoot.ShootOff());
     NamedCommands.registerCommand("IntakeDownOn", m_AutoIntakeDown.IntakeDownOn(-0.2));
     NamedCommands.registerCommand("IntakeDownOff", m_AutoIntakeDown.IntakeDownOff());
@@ -139,7 +139,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //Shooter Subsystem
-    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.setShooterMotorSpeed(0.62), m_shooterSubsystem));
+    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.setShooterMotorSpeed(ShooterSubsystem.kPrimaryShotPercent), m_shooterSubsystem));
     m_manipController.rightTrigger().onFalse(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
 
     //m_manipController.back().whileTrue(new RunCommand(() -> AutoShoot.Shoot()));
