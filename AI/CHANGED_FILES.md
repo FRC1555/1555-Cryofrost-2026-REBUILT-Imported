@@ -2,6 +2,11 @@
 
 These files were modified on `codex/AI-Modified` and left untouched on `main` and `Working-Branch`.
 
+Latest vision update:
+
+- Commit `ad18493` modernized the PhotonVision pose-estimation code to use the non-deprecated API flow.
+- The latest source snapshots for the vision cleanup are copied into the `AI` folder for easy review.
+
 - `src/main/deploy/pathplanner/autos/Blue Auto Shot.auto`
 - `src/main/deploy/pathplanner/autos/Red Auto Shot.auto`
 - `src/main/deploy/pathplanner/paths/New Path.path` (removed)
