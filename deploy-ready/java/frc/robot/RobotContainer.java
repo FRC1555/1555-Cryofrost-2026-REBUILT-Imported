@@ -70,7 +70,7 @@ public class RobotContainer {
             () ->
                 m_robotDrive.drive(
                     // Most flight-style joysticks report forward/back on Y and left/right strafe on X.
-                    -MathUtil.applyDeadband(
+                    MathUtil.applyDeadband(
                         m_driverController.getY(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(
                         m_driverController.getX(), OIConstants.kDriveDeadband),
