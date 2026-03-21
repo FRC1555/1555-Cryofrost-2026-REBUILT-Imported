@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -25,12 +26,16 @@ public class ShooterSubsystem extends SubsystemBase {
   private static final double kShooterVelocityFF = 1.0 / kShooterFreeSpeedRpm;
   private static final int kShooterCurrentLimitAmps = 50;
   private static final double kShooterVoltageComp = 12.0;
+  private static final double kShooterReadyToleranceRpm = 150.0;
+  private static final double kShooterReadyDebounceSeconds = 0.15;
+  private static final double kMinimumReadyTargetRpm = 500.0;
 
   public static final SparkFlex ShooterMotorRight = new SparkFlex(19, MotorType.kBrushless);
 
   private final RelativeEncoder shooterEncoder = ShooterMotorRight.getEncoder();
   private final SparkClosedLoopController shooterController =
       ShooterMotorRight.getClosedLoopController();
+  private final Debouncer shooterReadyDebouncer = new Debouncer(kShooterReadyDebounceSeconds);
 
   private double shooterPercentSetpoint = 0.0;
   private double shooterVelocitySetpointRpm = 0.0;
@@ -83,11 +88,24 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterVelocitySetpointRpm - getShooterVelocityRpm();
   }
 
+  public boolean isAtSpeed() {
+    return shooterVelocitySetpointRpm > kMinimumReadyTargetRpm
+        && Math.abs(getShooterVelocityErrorRpm()) < kShooterReadyToleranceRpm;
+  }
+
+  public boolean isReadyToFire() {
+    return shooterReadyDebouncer.calculate(isAtSpeed());
+  }
+
   public void periodic() {
+    boolean atSpeed = isAtSpeed();
+    boolean readyToFire = isReadyToFire();
+
     SmartDashboard.putNumber("Shooter/VelocityRPM", getShooterVelocityRpm());
     SmartDashboard.putNumber("Shooter/TargetRPM", shooterVelocitySetpointRpm);
     SmartDashboard.putNumber("Shooter/VelocityErrorRPM", getShooterVelocityErrorRpm());
     SmartDashboard.putNumber("Shooter/TargetPercent", shooterPercentSetpoint);
-    SmartDashboard.putBoolean("Shooter/AtSpeed", Math.abs(getShooterVelocityErrorRpm()) < 150.0);
+    SmartDashboard.putBoolean("Shooter/AtSpeed", atSpeed);
+    SmartDashboard.putBoolean("Shooter/ReadyToFire", readyToFire);
   }
 }
