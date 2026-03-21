@@ -20,9 +20,12 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
 
 public class VisionSubSystem2026Rebuilt extends SubsystemBase {
     private final PhotonCamera cameraR;
@@ -44,6 +47,10 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         // Initialize the pose estimator after fieldLayout and cameraToRobotR are set
         // photonEstimatorR = new PhotonPoseEstimator(fieldLayout,
         // PhotonPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS, cameraToRobotR);
+
+        HttpCamera httpCamera = new HttpCamera("FRC1555Camera", "http://limelight-cryo.local:5801");
+        CameraServer.startAutomaticCapture(httpCamera);
+        Shuffleboard.getTab("Vision").add(httpCamera);
     }
 
     // Right Target Camera
