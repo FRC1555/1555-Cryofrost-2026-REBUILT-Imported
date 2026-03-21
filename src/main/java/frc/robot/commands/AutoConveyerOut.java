@@ -3,10 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ConveyerBeltSubSystem;
 
-public class AutoConveyerOut extends Command {
-        public static Command TransferOut(){
-    while (true){
-      ConveyerBeltSubSystem.ConveyerMotor.set(-1.3);
-    }
+public final class AutoConveyerOut {
+  private AutoConveyerOut() {}
+
+  public static Command conveyerOut(ConveyerBeltSubSystem conveyerBeltSubSystem) {
+    // Autonomous helper for reversing the conveyor to clear or back out a piece.
+    return conveyerBeltSubSystem.setConveyerSpeedCommand(-1.0);
   }
 }

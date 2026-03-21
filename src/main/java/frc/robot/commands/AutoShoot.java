@@ -1,23 +1,18 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.ShooterSubsystem;
 
+public final class AutoShoot {
+  private AutoShoot() {}
 
+  public static Command shootOn(ShooterSubsystem shooterSubsystem, double shootSpeed) {
+    // Latch shooter speed so the wheel stays spinning after the named command finishes.
+    return shooterSubsystem.setShooterSpeedCommand(shootSpeed);
+  }
 
-public class AutoShoot {
-
-    public Command ShootOn(double ShootSpeed) {
-        return Commands.runOnce(
-            () -> ShooterSubsystem.ShooterMotorRight.set(ShootSpeed)
-        );
-    }
-
-    public Command ShootOff() {
-        return Commands.runOnce(
-            () -> ShooterSubsystem.ShooterMotorRight.set(0)
-        );
-    }
-
+  public static Command shootOff(ShooterSubsystem shooterSubsystem) {
+    // Matching stop command used after the feed step completes.
+    return shooterSubsystem.stopShooterCommand();
+  }
 }
