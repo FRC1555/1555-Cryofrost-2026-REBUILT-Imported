@@ -2,6 +2,8 @@
 
 These files were modified on `codex/AI-Modified` and left untouched on `main` and `Working-Branch`.
 
+The `AI` folder is now documentation-only. Students should edit the real source files under `src/`.
+
 Latest vision update:
 
 - Commit `ad18493` modernized the PhotonVision pose-estimation code to use the non-deprecated API flow.
@@ -11,7 +13,7 @@ Latest cleanup update:
 
 - Removed WPILib template leftovers and unused previous-robot scaffolding.
 - Added and tightened documentation comments across the active robot code touched on the AI branch.
-- The `AI/src` mirror now includes the latest cleaned Java files for review.
+- Reorganized the repo for student deployment readiness and removed the duplicated `AI/src` mirror.
 
 - `src/main/deploy/pathplanner/autos/Blue Auto Shot.auto`
 - `src/main/deploy/pathplanner/autos/Red Auto Shot.auto`
