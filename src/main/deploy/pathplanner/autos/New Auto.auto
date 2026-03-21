@@ -24,22 +24,21 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeDownOn"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
+            "name": "IntakeDownOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeDownOff"
           }
         },
         {
@@ -62,12 +61,6 @@
                 "type": "named",
                 "data": {
                   "name": "ConveyerOff"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeDownOff"
                 }
               },
               {
