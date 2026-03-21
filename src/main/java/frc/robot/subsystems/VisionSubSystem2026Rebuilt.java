@@ -136,8 +136,8 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         //     SmartDashboard.putNumber("Target PitchR", bestTargetR.getPitch());
         //     SmartDashboard.putNumber("Target AreaR", bestTargetR.getArea());
         //     SmartDashboard.putNumber("Target SkewR", bestTargetR.getSkew());
-            SmartDashboard.putNumber("Target ID", bestTargetR.getFiducialId());
-            SmartDashboard.putNumber("Target Distance", getTargetDistanceR(bestTargetR.getPitch()));
+            // SmartDashboard.putNumber("Target ID", bestTargetR.getFiducialId());
+            // SmartDashboard.putNumber("Target Distance", getTargetDistanceR(bestTargetR.getPitch()));
 
         //     photonEstimatorR.estimateLowestAmbiguityPose(resultR).ifPresentOrElse(
         //             est -> SmartDashboard.putString("EstimatedPose", est.estimatedPose.toString()),
@@ -151,15 +151,15 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         //     // of transform
 
         //     // Publish the number of targets detected
-            SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
-        } else {
-        //     // Clear the data if no target is detected
-        //     SmartDashboard.putNumber("Target YawR", 0.0);
-        //     SmartDashboard.putNumber("Target PitchR", 0.0);
-        //     SmartDashboard.putNumber("Target AreaR", 0.0);
-        //     SmartDashboard.putNumber("Target SkewR", 0.0);
-            SmartDashboard.putNumber("Target IDR", -1);
-            SmartDashboard.putNumber("Number of TargetsR", 0);
+        //     SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
+        // } else {
+        // //     // Clear the data if no target is detected
+        // //     SmartDashboard.putNumber("Target YawR", 0.0);
+        // //     SmartDashboard.putNumber("Target PitchR", 0.0);
+        // //     SmartDashboard.putNumber("Target AreaR", 0.0);
+        // //     SmartDashboard.putNumber("Target SkewR", 0.0);
+        //     SmartDashboard.putNumber("Target IDR", -1);
+        //     SmartDashboard.putNumber("Number of TargetsR", 0);
         }
     }
 }
