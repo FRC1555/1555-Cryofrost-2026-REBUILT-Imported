@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
@@ -27,6 +29,9 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
   private final AprilTagFieldLayout fieldLayout;
   private final Transform3d cameraToRobotR;
   private final PhotonPoseEstimator photonEstimatorR;
+  private PhotonPipelineResult latestResult = new PhotonPipelineResult();
+  private Optional<EstimatedRobotPose> latestEstimatedRobotPose = Optional.empty();
+  private final List<EstimatedRobotPose> unreadEstimatedRobotPoses = new ArrayList<>();
 
   public VisionSubSystem2026Rebuilt(String cameraNameR) {
     // Camera name must match the PhotonVision configuration running on the coprocessor.
@@ -40,9 +45,7 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
         new Transform3d(new Translation3d(0.0, 0.25, 0.6), new Rotation3d(0.0, 0.0, 0.0));
 
     // Pose estimator converts camera observations into field-relative robot poses.
-    photonEstimatorR =
-        new PhotonPoseEstimator(
-            fieldLayout, PhotonPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS, cameraToRobotR);
+    photonEstimatorR = new PhotonPoseEstimator(fieldLayout, cameraToRobotR);
 
     // Publish the Limelight web stream to Shuffleboard for driver and debugging visibility.
     HttpCamera httpCamera = new HttpCamera("FRC1555Camera", "http://limelight-cryo.local:5801");
@@ -52,14 +55,13 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
 
   public boolean hasTargetR() {
     // Fast helper used when other code only needs to know if a target is visible.
-    return cameraR.getLatestResult().hasTargets();
+    return latestResult.hasTargets();
   }
 
   public double getTargetYawR() {
     // Return the best target yaw or zero if the frame has no valid targets.
-    PhotonPipelineResult resultR = cameraR.getLatestResult();
-    if (resultR.hasTargets()) {
-      return resultR.getBestTarget().getYaw();
+    if (latestResult.hasTargets()) {
+      return latestResult.getBestTarget().getYaw();
     }
     return 0.0;
   }
@@ -78,14 +80,23 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
   }
 
   public Optional<EstimatedRobotPose> getEstimatedRobotPose() {
-    // PhotonVision returns a stamped estimate so the drivetrain can fuse it with the correct latency.
-    PhotonPipelineResult resultR = cameraR.getLatestResult();
-    return photonEstimatorR.estimateLowestAmbiguityPose(resultR);
+    // Return the newest unread estimate so the drivetrain only consumes each vision measurement once.
+    if (unreadEstimatedRobotPoses.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(unreadEstimatedRobotPoses.remove(0));
+  }
+
+  public List<EstimatedRobotPose> drainEstimatedRobotPoses() {
+    // Batch access is useful when multiple unread frames arrive between drivetrain loops.
+    List<EstimatedRobotPose> drainedPoses = new ArrayList<>(unreadEstimatedRobotPoses);
+    unreadEstimatedRobotPoses.clear();
+    return drainedPoses;
   }
 
   public Optional<Pose2d> getEstimatedPose2d() {
-    // Convenience wrapper for code that only needs the 2D field pose.
-    return getEstimatedRobotPose().map(
+    // Dashboard helpers should read the latest cached estimate without consuming unread samples.
+    return latestEstimatedRobotPose.map(
         est -> {
           var t = est.estimatedPose.getTranslation();
           var r = est.estimatedPose.getRotation();
@@ -95,23 +106,34 @@ public class VisionSubSystem2026Rebuilt extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Poll the latest camera frame once per scheduler loop.
-    PhotonPipelineResult resultR = cameraR.getLatestResult();
+    // Poll unread frames exactly once per loop and cache the most recent one for dashboard helpers.
+    for (PhotonPipelineResult resultR : cameraR.getAllUnreadResults()) {
+      latestResult = resultR;
 
-    SmartDashboard.putBoolean("Has TargetR", resultR.hasTargets());
+      Optional<EstimatedRobotPose> estimatedRobotPose =
+          photonEstimatorR.estimateCoprocMultiTagPose(resultR);
+      if (estimatedRobotPose.isEmpty()) {
+        estimatedRobotPose = photonEstimatorR.estimateLowestAmbiguityPose(resultR);
+      }
+      estimatedRobotPose.ifPresent(
+          pose -> {
+            latestEstimatedRobotPose = Optional.of(pose);
+            unreadEstimatedRobotPoses.add(pose);
+          });
+    }
 
-    if (resultR.hasTargets()) {
+    SmartDashboard.putBoolean("Has TargetR", latestResult.hasTargets());
+
+    if (latestResult.hasTargets()) {
       // Publish the most useful target and pose-estimation information for tuning.
-      PhotonTrackedTarget bestTargetR = resultR.getBestTarget();
+      PhotonTrackedTarget bestTargetR = latestResult.getBestTarget();
 
       SmartDashboard.putNumber("Target ID", bestTargetR.getFiducialId());
       SmartDashboard.putNumber("Target Distance", getTargetDistanceR(bestTargetR.getPitch()));
-      SmartDashboard.putNumber("Number of TargetR", resultR.getTargets().size());
-      getEstimatedRobotPose()
+      SmartDashboard.putNumber("Number of TargetR", latestResult.getTargets().size());
+      getEstimatedPose2d()
           .ifPresent(
-              estimatedRobotPose ->
-                  SmartDashboard.putString(
-                      "EstimatedPose", estimatedRobotPose.estimatedPose.toPose2d().toString()));
+              estimatedPose -> SmartDashboard.putString("EstimatedPose", estimatedPose.toString()));
     } else {
       // Clear target-dependent dashboard values when the camera loses sight of tags.
       SmartDashboard.putNumber("Target IDR", -1);

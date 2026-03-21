@@ -155,13 +155,10 @@ public class DriveSubsystem extends SubsystemBase {
         });
 
     // Then fuse the most recent stamped vision pose if PhotonVision has one available.
-    m_visionSubsystem
-        .getEstimatedRobotPose()
-        .ifPresent(
-            estimatedRobotPose ->
-                m_odometry.addVisionMeasurement(
-                    estimatedRobotPose.estimatedPose.toPose2d(),
-                    estimatedRobotPose.timestampSeconds));
+    for (var estimatedRobotPose : m_visionSubsystem.drainEstimatedRobotPoses()) {
+      m_odometry.addVisionMeasurement(
+          estimatedRobotPose.estimatedPose.toPose2d(), estimatedRobotPose.timestampSeconds);
+    }
   }
 
   public Pose2d getPose() {
