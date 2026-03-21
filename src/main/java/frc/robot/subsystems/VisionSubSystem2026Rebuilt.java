@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+/** PhotonVision-backed AprilTag subsystem for target info and stamped robot pose updates. */
 public class VisionSubSystem2026Rebuilt extends SubsystemBase {
   // PhotonVision camera and its associated field/robot pose model.
   private final PhotonCamera cameraR;

@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
+/** Swerve drivetrain with PathPlanner integration and fused AprilTag vision odometry. */
 public class DriveSubsystem extends SubsystemBase {
   // The robot uses one IMU axis consistently for driver heading, odometry, and auto control.
   private static final IMUAxis kYawAxis = IMUAxis.kZ;
