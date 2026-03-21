@@ -16,14 +16,14 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.AutoConveyerIn;
-import frc.robot.commands.AutoConveyerOut;
+import frc.robot.commands.AutoConveyorIn;
+import frc.robot.commands.AutoConveyorOut;
 import frc.robot.commands.AutoIntakeDown;
 import frc.robot.commands.AutoIntakeIn;
 import frc.robot.commands.AutoIntakeOut;
 import frc.robot.commands.AutoIntakeUp;
 import frc.robot.commands.AutoShoot;
-import frc.robot.subsystems.ConveyerBeltSubSystem;
+import frc.robot.subsystems.ConveyorBeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -34,7 +34,7 @@ public class RobotContainer {
   // Core robot subsystems used by both teleop controls and autonomous named commands.
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ConveyerBeltSubSystem m_conveyerBeltSubSystem = new ConveyerBeltSubSystem();
+  private final ConveyorBeltSubsystem m_conveyorBeltSubsystem = new ConveyorBeltSubsystem();
   private final VisionSubSystem2026Rebuilt m_visionSubsystem =
       new VisionSubSystem2026Rebuilt("RightCAM");
   private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
@@ -95,14 +95,14 @@ public class RobotContainer {
         "IntakeOutSystem", AutoIntakeOut.intakeOutSystem(m_intakeSubsystem));
 
     // Conveyor controls used to feed the shooter.
-    NamedCommands.registerCommand("ConveyerIn", AutoConveyerIn.conveyerIn(m_conveyerBeltSubSystem));
+    NamedCommands.registerCommand("ConveyorIn", AutoConveyorIn.conveyorIn(m_conveyorBeltSubsystem));
     NamedCommands.registerCommand(
-        "ConveyerOut", AutoConveyerOut.conveyerOut(m_conveyerBeltSubSystem));
+        "ConveyorOut", AutoConveyorOut.conveyorOut(m_conveyorBeltSubsystem));
 
     // Explicit stop commands keep autos deterministic after a scoring sequence finishes.
     NamedCommands.registerCommand("IntakeStop", m_intakeSubsystem.stopIntakeCommand());
     NamedCommands.registerCommand("IntakeArmStop", m_intakeSubsystem.stopArmCommand());
-    NamedCommands.registerCommand("ConveyerStop", m_conveyerBeltSubSystem.stopConveyerCommand());
+    NamedCommands.registerCommand("ConveyorStop", m_conveyorBeltSubsystem.stopConveyorCommand());
   }
 
   private void configureButtonBindings() {
@@ -131,11 +131,11 @@ public class RobotContainer {
     m_manipController.x().onFalse(m_intakeSubsystem.stopArmCommand());
 
     // Conveyor controls: feed forward or reverse while the bumper is held.
-    m_manipController.leftBumper().whileTrue(m_conveyerBeltSubSystem.runConveyerCommand(1.0));
-    m_manipController.leftBumper().onFalse(m_conveyerBeltSubSystem.stopConveyerCommand());
+    m_manipController.leftBumper().whileTrue(m_conveyorBeltSubsystem.runConveyorCommand(1.0));
+    m_manipController.leftBumper().onFalse(m_conveyorBeltSubsystem.stopConveyorCommand());
 
-    m_manipController.rightBumper().whileTrue(m_conveyerBeltSubSystem.runConveyerCommand(-1.0));
-    m_manipController.rightBumper().onFalse(m_conveyerBeltSubSystem.stopConveyerCommand());
+    m_manipController.rightBumper().whileTrue(m_conveyorBeltSubsystem.runConveyorCommand(-1.0));
+    m_manipController.rightBumper().onFalse(m_conveyorBeltSubsystem.stopConveyorCommand());
 
     // Driver speed presets for practice and match conditions.
     fullSendButton.onTrue(new InstantCommand(() -> m_robotDrive.setDriveSpeed(1.0)));

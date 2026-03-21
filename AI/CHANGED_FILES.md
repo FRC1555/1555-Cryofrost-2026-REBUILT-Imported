@@ -24,15 +24,15 @@ Latest cleanup update:
 - `src/main/java/frc/robot/Robot.java`
 - `src/main/java/frc/robot/RobotContainer.java`
 - `src/main/java/frc/robot/commands/AlignToTargetCommand.java` (removed)
-- `src/main/java/frc/robot/commands/AutoConveyerIn.java`
-- `src/main/java/frc/robot/commands/AutoConveyerOut.java`
+- `src/main/java/frc/robot/commands/AutoConveyorIn.java`
+- `src/main/java/frc/robot/commands/AutoConveyorOut.java`
 - `src/main/java/frc/robot/commands/AutoIntakeDown.java`
 - `src/main/java/frc/robot/commands/AutoIntakeIn.java`
 - `src/main/java/frc/robot/commands/AutoIntakeOut.java`
 - `src/main/java/frc/robot/commands/AutoIntakeUp.java`
 - `src/main/java/frc/robot/commands/Autos.java` (removed)
 - `src/main/java/frc/robot/commands/AutoShoot.java`
-- `src/main/java/frc/robot/subsystems/ConveyerBeltSubSystem.java`
+- `src/main/java/frc/robot/subsystems/ConveyorBeltSubsystem.java`
 - `src/main/java/frc/robot/subsystems/DriveSubsystem.java`
 - `src/main/java/frc/robot/subsystems/ExampleSubsystem.java` (removed)
 - `src/main/java/frc/robot/subsystems/IntakeSubsystem.java`
