@@ -5,12 +5,22 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -39,8 +49,8 @@ public class RobotContainer {
       new VisionSubSystem2026Rebuilt("RightCAM");
   private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
 
-  // PathPlanner auto chooser published to the dashboard.
-  private final SendableChooser<Command> autoChooser;
+  // PathPlanner auto-name chooser published to the dashboard.
+  private final SendableChooser<String> autoChooser;
 
   // Driver and manipulator input devices.
   public final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
@@ -58,7 +68,7 @@ public class RobotContainer {
     registerNamedCommands();
 
     // Build and publish the autonomous chooser shown on the dashboard.
-    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser = buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     // Connect controller buttons to subsystem-owned commands.
@@ -78,6 +88,29 @@ public class RobotContainer {
                         m_driverController.getZ(), OIConstants.kDriveDeadband),
                     true),
             m_robotDrive));
+  }
+
+  private SendableChooser<String> buildAutoChooser() {
+    // Build a chooser from auto names so we can wrap the selected auto at runtime.
+    SendableChooser<String> chooser = new SendableChooser<>();
+    List<String> autoNames = new ArrayList<>(AutoBuilder.getAllAutoNames());
+    autoNames.sort(Comparator.naturalOrder());
+
+    if (autoNames.isEmpty()) {
+      chooser.setDefaultOption("No Autos Found", "");
+      return chooser;
+    }
+
+    String defaultAuto = autoNames.contains("Blue Auto Shot") ? "Blue Auto Shot" : autoNames.get(0);
+    chooser.setDefaultOption(defaultAuto, defaultAuto);
+
+    for (String autoName : autoNames) {
+      if (!autoName.equals(defaultAuto)) {
+        chooser.addOption(autoName, autoName);
+      }
+    }
+
+    return chooser;
   }
 
   private void registerNamedCommands() {
@@ -156,7 +189,57 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    // Return the dashboard-selected autonomous routine.
-    return autoChooser.getSelected();
+    // Build the auto at autonomous start so we can use the freshest AprilTag pose available.
+    return buildAutonomousCommand(autoChooser.getSelected());
+  }
+
+  private Command buildAutonomousCommand(String autoName) {
+    if (autoName == null || autoName.isBlank()) {
+      SmartDashboard.putString("Auto/StartMode", "No auto selected");
+      return Commands.none();
+    }
+
+    SmartDashboard.putString("Auto/Selected", autoName);
+
+    try {
+      PathPlannerAuto selectedAuto = new PathPlannerAuto(autoName);
+      List<PathPlannerPath> pathGroup = PathPlannerAuto.getPathGroupFromAutoFile(autoName);
+
+      if (pathGroup.isEmpty()) {
+        SmartDashboard.putBoolean("Auto/HasAprilTagStartPose", false);
+        SmartDashboard.putString("Auto/StartMode", "No path data, running auto directly");
+        return selectedAuto;
+      }
+
+      Optional<Pose2d> estimatedStartPose = m_visionSubsystem.getEstimatedPose2d();
+      SmartDashboard.putBoolean("Auto/HasAprilTagStartPose", estimatedStartPose.isPresent());
+
+      if (estimatedStartPose.isEmpty()) {
+        SmartDashboard.putString("Auto/StartMode", "No AprilTag pose, running auto directly");
+        return selectedAuto;
+      }
+
+      Pose2d visionSeedPose = estimatedStartPose.get();
+      Pose2d desiredAutoStartPose = selectedAuto.getStartingPose();
+      PathConstraints startConstraints = pathGroup.get(0).getGlobalConstraints();
+
+      SmartDashboard.putString("Auto/VisionSeedPose", visionSeedPose.toString());
+      SmartDashboard.putString("Auto/DesiredStartPose", desiredAutoStartPose.toString());
+      SmartDashboard.putString("Auto/StartMode", "AprilTag seed + pathfind to auto start");
+
+      // Seed odometry from AprilTags, drive to the selected auto start pose, then run the auto.
+      return Commands.sequence(
+              Commands.runOnce(() -> m_robotDrive.resetPose(visionSeedPose), m_robotDrive),
+              AutoBuilder.pathfindToPoseFlipped(desiredAutoStartPose, startConstraints),
+              selectedAuto)
+          .withName("AprilTagStart_" + autoName.replace(' ', '_'));
+    } catch (Exception e) {
+      SmartDashboard.putBoolean("Auto/HasAprilTagStartPose", false);
+      SmartDashboard.putString("Auto/StartMode", "Auto fallback after build error");
+      SmartDashboard.putString(
+          "Auto/StartError",
+          e.getClass().getSimpleName() + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+      return AutoBuilder.buildAuto(autoName);
+    }
   }
 }
