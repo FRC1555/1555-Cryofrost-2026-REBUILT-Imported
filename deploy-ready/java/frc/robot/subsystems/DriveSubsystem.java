@@ -165,6 +165,10 @@ public class DriveSubsystem extends SubsystemBase {
     // Publish live drivetrain telemetry so drivers can confirm speed scaling and command outputs.
     SmartDashboard.putBoolean("Drive/FullSendActive", currentDriveSpeed >= 0.999);
     SmartDashboard.putNumber("Drive/SpeedMultiplier", currentDriveSpeed);
+    SmartDashboard.putNumber(
+        "Drive/DriveCurrentLimit_A", DriveConstants.kDrivingMotorCurrentLimitAmps);
+    SmartDashboard.putNumber(
+        "Drive/TurningCurrentLimit_A", DriveConstants.kTurningMotorCurrentLimitAmps);
     SmartDashboard.putNumber("Drive/CommandedX_mps", xSpeedDelivered);
     SmartDashboard.putNumber("Drive/CommandedY_mps", ySpeedDelivered);
     SmartDashboard.putNumber("Drive/CommandedRot_rps", rotDelivered);
