@@ -7,16 +7,21 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 
 public class AutoShoot {
+    private final ShooterSubsystem shooterSubsystem;
+
+    public AutoShoot(ShooterSubsystem shooterSubsystem) {
+        this.shooterSubsystem = shooterSubsystem;
+    }
 
     public Command ShootOn(double ShootSpeed) {
         return Commands.runOnce(
-            () -> ShooterSubsystem.ShooterMotorRight.set(ShootSpeed)
+            () -> shooterSubsystem.setShooterMotorSpeed(ShootSpeed)
         );
     }
 
     public Command ShootOff() {
         return Commands.runOnce(
-            () -> ShooterSubsystem.ShooterMotorRight.set(0)
+            () -> shooterSubsystem.stopShooter()
         );
     }
 

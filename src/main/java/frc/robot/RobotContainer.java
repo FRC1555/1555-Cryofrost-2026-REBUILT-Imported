@@ -19,7 +19,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.events.EventTrigger;
-import com.revrobotics.spark.SparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -73,7 +72,7 @@ public class RobotContainer {
 //   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-    private final AutoShoot m_autoShoot = new AutoShoot();
+    private final AutoShoot m_autoShoot = new AutoShoot(m_shooterSubsystem);
     private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
     private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
     private final AutoConveyerIn m_AutoConveyerIn = new AutoConveyerIn();
@@ -140,13 +139,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     //Shooter Subsystem
-    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.62)));
-    m_manipController.rightTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0.0)));
+    m_manipController.rightTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.setShooterMotorSpeed(0.62), m_shooterSubsystem));
+    m_manipController.rightTrigger().onFalse(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
 
     //m_manipController.back().whileTrue(new RunCommand(() -> AutoShoot.Shoot()));
 
-    m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(-0.6)));
-    m_manipController.leftTrigger().onFalse(new RunCommand(() -> m_shooterSubsystem.ShooterMotorRight.set(0)));
+    m_manipController.leftTrigger().whileTrue(new RunCommand(() -> m_shooterSubsystem.setShooterMotorSpeed(-0.6), m_shooterSubsystem));
+    m_manipController.leftTrigger().onFalse(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
 
     //run intake in
     m_manipController.rightBumper().whileTrue(new RunCommand(() -> IntakeSubsystem.intakeMotor.set(IntakeSubsystem.intakeMotorSpeed = 0.45)));
