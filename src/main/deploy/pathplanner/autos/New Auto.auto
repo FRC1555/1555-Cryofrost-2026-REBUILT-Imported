@@ -5,25 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Blue Auto"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShootOn"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "IntakeDownOn"
@@ -32,25 +13,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeDownOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ConveyerIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 4.0
+            "waitTime": 0.5
           }
         },
         {
@@ -60,22 +23,28 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ConveyerOff"
+                  "name": "IntakeInSystem"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "ShootOff"
+                  "pathName": "Corral And Shoot"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootOn"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Blue",
   "choreoAuto": false
 }

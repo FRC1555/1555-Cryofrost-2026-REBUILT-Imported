@@ -1,0 +1,109 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue Auto"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ConveyorIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ConveyorStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootOff"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue Corral PT 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Corral PT 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeArmStop"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Corral PT 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootOff"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Blue",
+  "choreoAuto": false
+}
