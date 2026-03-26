@@ -95,15 +95,16 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    NamedCommands.registerCommand("ShootOn", m_autoShoot.ShootOn(ShooterSubsystem.kPrimaryShotPercent));
-    NamedCommands.registerCommand("ShootOff", m_autoShoot.ShootOff());
-    NamedCommands.registerCommand("IntakeDownOn", m_AutoIntakeDown.IntakeDownOn(-0.2));
-    NamedCommands.registerCommand("IntakeDownOff", m_AutoIntakeDown.IntakeDownOff());
-    NamedCommands.registerCommand("IntakeUpSystem", m_AutoIntakeUp);
-    NamedCommands.registerCommand("IntakeInSystem", m_AutoIntakeIn.IntakeInOn(0.45));
-    NamedCommands.registerCommand("IntakeOffSystem", m_AutoIntakeIn.IntakeOff());
-    NamedCommands.registerCommand("ConveyerIn", m_AutoConveyerIn.ConveyerIn(-1.3));
-    NamedCommands.registerCommand("ConveyerOff", m_AutoConveyerIn.ConveyerOff());
+    NamedCommands.registerCommand("Shooter On", m_autoShoot.ShootOn(ShooterSubsystem.kPrimaryShotPercent));
+    NamedCommands.registerCommand("Shooter Off", m_autoShoot.ShootOff());
+    NamedCommands.registerCommand("IntakeArmDown", m_AutoIntakeDown.IntakeDownOn(-0.2));
+    NamedCommands.registerCommand("IntakeDownArmOff", m_AutoIntakeDown.IntakeDownOff());
+    NamedCommands.registerCommand("IntakeArmUpStop", m_AutoIntakeUp.IntakeUpOff());
+    NamedCommands.registerCommand("IntakeArmUp", m_AutoIntakeUp.IntakeUpSystem(0.2));
+    NamedCommands.registerCommand("IntakeIn", m_AutoIntakeIn.IntakeInOn(0.45));
+    NamedCommands.registerCommand("IntakeOff", m_AutoIntakeIn.IntakeOff());
+    NamedCommands.registerCommand("ConveyorIn", m_AutoConveyerIn.ConveyerIn(-1.3));
+    NamedCommands.registerCommand("ConveyorOff", m_AutoConveyerIn.ConveyerOff());
 
 
     //building the auto chooser on smartdashboard

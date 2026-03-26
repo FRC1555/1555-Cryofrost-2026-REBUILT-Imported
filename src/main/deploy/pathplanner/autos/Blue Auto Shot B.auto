@@ -13,13 +13,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootOn"
+            "name": "IntakeArmDown"
           }
         },
         {
@@ -31,13 +31,37 @@
         {
           "type": "named",
           "data": {
+            "name": "IntakeDownArmOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter On"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "ConveyorIn"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.75
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Off"
           }
         },
         {
@@ -49,19 +73,37 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootOff"
+            "name": "IntakeIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeStop"
+            "name": "IntakeOff"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeArmStop"
+            "name": "Shooter Off"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ConveyorStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeArmUpStop"
           }
         }
       ]

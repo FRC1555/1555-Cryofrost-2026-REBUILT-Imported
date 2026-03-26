@@ -75,54 +75,6 @@
           "data": {
             "pathName": "Blue Corral PT 2"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Corral PT 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeDownArmOff"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Corral PT 4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shooter On"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shooter Off"
-          }
         }
       ]
     }

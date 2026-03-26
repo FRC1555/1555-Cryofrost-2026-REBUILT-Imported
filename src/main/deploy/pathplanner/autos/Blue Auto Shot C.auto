@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Auto"
+            "pathName": "Preload C"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -19,7 +25,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 1.5
           }
         },
         {
@@ -29,27 +35,9 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Shooter On"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ConveyorIn"
           }
         },
         {
@@ -61,55 +49,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ConveyorStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shooter Off"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue Corral PT 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Corral PT 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeDownArmOff"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Corral PT 4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shooter On"
+            "name": "ConveyorIn"
           }
         },
         {
@@ -122,6 +62,30 @@
           "type": "named",
           "data": {
             "name": "Shooter Off"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ConveyorStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeOff"
           }
         }
       ]
