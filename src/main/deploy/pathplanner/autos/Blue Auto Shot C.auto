@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shooter On"
+            "name": "ShooterOn"
           }
         },
         {
@@ -61,13 +61,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shooter Off"
+            "name": "ShooterOff"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ConveyorStop"
+            "name": "ConveyorOff"
           }
         },
         {

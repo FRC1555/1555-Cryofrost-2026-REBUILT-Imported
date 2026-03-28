@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Auto"
+            "pathName": "Preload A"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 1.0
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shooter On"
+            "name": "ShooterOn"
           }
         },
         {
@@ -61,49 +61,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shooter Off"
+            "name": "ShooterOff"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ConveyorStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shooter Off"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ConveyorStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeArmUpStop"
+            "name": "ConveyorOff"
           }
         }
       ]

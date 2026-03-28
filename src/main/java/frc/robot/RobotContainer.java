@@ -95,8 +95,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    NamedCommands.registerCommand("Shooter On", m_autoShoot.ShootOn(ShooterSubsystem.kPrimaryShotPercent));
-    NamedCommands.registerCommand("Shooter Off", m_autoShoot.ShootOff());
+    NamedCommands.registerCommand("ShooterOn", m_autoShoot.ShootOn(ShooterSubsystem.kPrimaryShotPercent));
+    NamedCommands.registerCommand("ShooterOff", m_autoShoot.ShootOff());
     NamedCommands.registerCommand("IntakeArmDown", m_AutoIntakeDown.IntakeDownOn(-0.2));
     NamedCommands.registerCommand("IntakeDownArmOff", m_AutoIntakeDown.IntakeDownOff());
     NamedCommands.registerCommand("IntakeArmUpStop", m_AutoIntakeUp.IntakeUpOff());

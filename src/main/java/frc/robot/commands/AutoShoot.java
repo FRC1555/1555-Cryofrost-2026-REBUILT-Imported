@@ -21,7 +21,7 @@ public class AutoShoot {
 
     public Command ShootOff() {
         return Commands.runOnce(
-            () -> shooterSubsystem.stopShooter()
+            () -> shooterSubsystem.setShooterMotorSpeed(0)
         );
     }
 
