@@ -167,15 +167,17 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearRight.getPosition()
         });
     // Inject vision data into odometry: query the Vision subsystem for an estimated Pose2d
-    m_visionSubsystem.getEstimatedPose2d().ifPresent(pose2d -> {
-      double timestamp = Timer.getFPGATimestamp();
-      // Add the vision measurement to the pose estimator
-      m_odometry.addVisionMeasurement(pose2d, timestamp);
-      // SmartDashboard.putString("Vision/EstimatedPose", pose2d.toString());
+    if (m_visionSubsystem != null) {
+      m_visionSubsystem.getEstimatedPose2d().ifPresent(pose2d -> {
+        double timestamp = Timer.getFPGATimestamp();
+        // Add the vision measurement to the pose estimator
+        m_odometry.addVisionMeasurement(pose2d, timestamp);
+        // SmartDashboard.putString("Vision/EstimatedPose", pose2d.toString());
 
-      // SmartDashboard.putNumber("XSpeed", xSpeedDelivered);
-      // SmartDashboard.putNumber("YSpeed", ySpeedDelivered);
-    });
+        // SmartDashboard.putNumber("XSpeed", xSpeedDelivered);
+        // SmartDashboard.putNumber("YSpeed", ySpeedDelivered);
+      });
+    }
 
 
   }

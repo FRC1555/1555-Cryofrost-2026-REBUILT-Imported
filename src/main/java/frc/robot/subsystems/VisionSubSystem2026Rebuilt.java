@@ -27,6 +27,19 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
 
+/**
+ * Vision subsystem using PhotonVision for AprilTag detection and pose estimation.
+ *
+ * <p>Camera: "RightCAM" on limelight-cryo.local:5801. Streams to Shuffleboard "Vision" tab.
+ * Also streams an HttpCamera from the Limelight for driver feed.
+ *
+ * <p>NOTE: This subsystem has significant dead code (commented-out blocks) and duplicate
+ * PhotonPoseEstimator initializations. The main estimator is at line 111 (field init) — the one
+ * in the constructor is commented out. getEstimatedPose2d() references the field-level estimator.
+ *
+ * <p>TEMPORARILY REMOVED in RobotContainer (passes null to DriveSubsystem) because the
+ * coprocessor is not currently available. Re-enable when it's back online.
+ */
 public class VisionSubSystem2026Rebuilt extends SubsystemBase {
     private final PhotonCamera cameraR;
     private final AprilTagFieldLayout fieldLayout;

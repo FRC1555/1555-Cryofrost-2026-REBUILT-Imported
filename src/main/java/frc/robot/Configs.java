@@ -9,6 +9,12 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.Constants.ModuleConstants;
 
+/**
+ * Motor controller configuration presets.
+ *
+ * <p>Contains static configs for swerve drive/turning motors, plus stubs for the old Coral and
+ * Algae subsystems (commented out in Constants.java).
+ */
 @SuppressWarnings("unused")
 public final class Configs {
   @SuppressWarnings("removal")

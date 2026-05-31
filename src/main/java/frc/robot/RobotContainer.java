@@ -1,7 +1,6 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-//Max smells bad
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
@@ -42,7 +41,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.VisionSubSystem2026Rebuilt;
+// import frc.robot.subsystems.VisionSubSystem2026Rebuilt;
 import java.util.List;
 import java.util.Queue;
 
@@ -66,21 +65,34 @@ import frc.robot.commands.AutoShoot;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 @SuppressWarnings("unused")
+/**
+ * Robot-wide button bindings, subsystem instantiation, and auto command registration.
+ *
+ * <p>Controls:
+ * <ul>
+ *   <li>Driver (port 0): Left stick drive, Turtle Beach buttons 1-4 for speed limits
+ *   <li>Manipulator (port 1): Right trigger = shoot, Left trigger = reverse, B/X = arm down/up,
+ *       A/Y = intake in/out, Left/Right bumper = conveyer in/out
+ * </ul>
+ *
+ * <p>Vision subsystem is currently REM'd out (passes null to DriveSubsystem).
+ * Re-enable when coprocessor is online.
+ */
 public class RobotContainer {
-  // The robot's subsystems9
+  // The robot's subsystems
    
 //   private final CoralSubsystem m_coralSubSystem = new CoralSubsystem();
 //   private final AlgaeSubsystem m_algaeSubsystem = new AlgaeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final AutoShoot m_autoShoot = new AutoShoot(m_shooterSubsystem);
-    private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
-    private final DriveSubsystem m_robotDrive = new DriveSubsystem(m_visionSubsystem);
+    // private final VisionSubSystem2026Rebuilt m_visionSubsystem = new VisionSubSystem2026Rebuilt("RightCAM");
+    private final DriveSubsystem m_robotDrive = new DriveSubsystem(null);
     private final AutoConveyerIn m_AutoConveyerIn = new AutoConveyerIn();
     private final AutoIntakeIn m_AutoIntakeIn = new AutoIntakeIn();
     private final AutoIntakeDown m_AutoIntakeDown = new AutoIntakeDown();
     private final AutoIntakeUp m_AutoIntakeUp = new AutoIntakeUp();
 
-  // The driver's controlleo
+  // The driver's controller
   public Joystick m_driverController =
       new Joystick(OIConstants.kDriverControllerPort);
   public CommandXboxController m_manipController =

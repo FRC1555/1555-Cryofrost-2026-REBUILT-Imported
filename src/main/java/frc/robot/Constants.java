@@ -19,6 +19,25 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
+  /**
+   * CAN ID Map:
+   *   2 - TransferSubSystem.transferMotor (Spark Flex)
+   *   3 - ConveyerBeltSubSystem.ConveyerMotor (Spark Flex)
+   *   5 - Swerve Front Left TURNING (Spark MAX)
+   *   6 - Swerve Front Left DRIVING (Spark Flex) — TIMING OUT (likely physical wiring)
+   *   7 - Swerve Front Right TURNING (Spark MAX)
+   *   8 - Swerve Front Right DRIVING (Spark Flex)
+   *   9 - Swerve Rear Right TURNING (Spark MAX)
+   *  10 - Swerve Rear Right DRIVING (Spark Flex)
+   *  11 - Swerve Rear Left TURNING (Spark MAX)
+   *  12 - Swerve Rear Left DRIVING (Spark Flex)
+   *  16 - IntakeSubsystem.intakeMotorArm (Spark Flex)
+   *  17 - IntakeSubsystem.intakeMotor (Spark Flex)
+   *  19 - ShooterSubsystem (Spark Flex)
+   *
+   * CAN IDs 2,3,4,13,14 were originally Spark MAX (from Coral/Algae subsystems) — disabled.
+   */
+
   // public static final class CoralSubsystemConstants { //#CoralSystem
   //   public static final int kElevatorMotorCanId = 4;
   //   public static final int kArmMotorCanId = 3;

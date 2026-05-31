@@ -10,6 +10,14 @@ import edu.wpi.first.wpilibj.Timer;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * Match shift scheduler — divides a 140-second teleop match into 6 time windows ("shifts")
+ * for coordinating alliance strategy (e.g., which alliance is on offense/defense in each
+ * window). Tracks elapsed/remaining time per shift and exposes it to SmartDashboard.
+ *
+ * <p>Schedule is determined by FMS game-specific message or alliance color. The shifted
+ * variants (getShiftedShiftInfo) add fudge offsets for approaching/ending active windows.
+ */
 public class HubShiftUtil {
   public enum ShiftEnum {
     TRANSITION,
